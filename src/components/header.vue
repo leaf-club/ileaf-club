@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav>
-      <router-link to="/personal" class="logo">
+      <router-link to="/" class="logo">
         <img src="../../static/images/logo.png" width="150" alt="logo-picture">
       </router-link>
       <ul>
@@ -70,21 +70,15 @@
   @import '../../static/css/mixin.scss';
   @media screen and (min-width: 1400px) {
     html {
-      font-size: 20px;
-      header {
-        height: 60px;
-      }
-    }
-    html>article {
-      margin: 70px auto 0;
+      font-size: 110px;
     }
   }
   html {
-    font-size: 16px;
+    font-size: 0.16rem;
   }
   header {
     width: 100%;
-    height: 50px;
+    height: 0.50rem;
     position: fixed;
     top: 0;
     display: flex;
@@ -92,26 +86,24 @@
     background: #fff;
     nav, #options {
       display: flex;
-      ul {
-        font-size: 1rem;
-      }
+      font-size: 0.16rem;
     }
     nav {
-      margin-left: 10px;
+      margin-left: 0.10rem;
       .logo {
         display: flex;
         align-items: center;
       }
       ul {
         margin: 0;
-        padding-left: 10px;
+        padding-left: 0.10rem;
         display: flex;
         align-items: center;
         list-style: none;
         li{
-          width: 50px;
+          width: 0.50;
           text-align: center;
-          margin-right: 10px;
+          margin-right: 0.10rem;
           a{
             color: $mainFontColor;
             text-decoration: none;
@@ -123,14 +115,14 @@
       }
     }
     #options {
-      margin-right: 10px;
-      padding: 0 20px 0 0;
+      margin-right: 0.10rem;
+      padding: 0 0.20rem 0 0;
       align-items: center;
       list-style: none;
       li {
-        width: 50px;
+        width: 0.50rem;
         text-align: center;
-        margin-right: 10px;
+        margin-right: 0.10rem;
         a{
           color: $mainFontColor;
           text-decoration: none;
@@ -141,26 +133,26 @@
         .btn-write {
           color: #fff;
           background-color: $mainColor;
-          border-radius: 22px;
+          border-radius: 0.22rem;
           display: inline-block;
-          width: 80px;
-          height: 35px;
-          line-height: 35px;
+          width: 0.80rem;
+          height: 0.35rem;
+          line-height: 0.35rem;
         }
       }
       .user-info {
-        height: 50px;
+        height: 0.50rem;
         display: flex;
         align-items: center;
-        width: 40px;
+        width: 0.40rem;
         &:hover {
           ul {
             display: block;
           }
         }
         .avatar {
-          width: 40px;
-          height: 40px;
+          width: 0.40rem;
+          height: 0.40rem;
           display: inline-block;
           cursor: pointer;
           img {
@@ -171,81 +163,18 @@
           display: none;
           position: absolute;
           top: 100%;
-          margin-top: -2px;
-          padding: 0 10px;
+          margin-top: -0.02rem;
+          padding: 0 0.10rem;
           list-style: none;
           background-color: #fff;
           background-clip: padding-box;
-          border: 1px solid rgba(0, 0, 0, -0.85);
-          border-radius: 1px;
-          -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.175);
+          border: 0.01rem solid rgba(0, 0, 0, -0.85);
+          border-radius: 0.01rem;
+          -webkit-box-shadow: 0 0.06rem 0.12rem rgba(0, 0, 0, 0.175);
+          box-shadow: 0 0.03rem 0.12rem rgba(0, 0, 0, 0.175);
           li {
-            width: 80px;
-            margin: 10px 5px;
-          }
-        }
-      }
-    }
-  }
-  #header {
-    .right {
-      .login {
-        .avatar {
-          display: block;
-          width: 44px;
-          height: 44px;
-          margin-right: 25px;
-          position: relative;
-          &::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: -20px;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid $mainColor;
-          }
-          img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-          }
-        }
-        &.user-info {
-          position: relative;
-          .drop-menu {
-            display: none;
-            list-style: none;
-            margin: 0;
-            padding:10px 0 0 0;
-            width: 100px;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            background-color: #fff;
-            border-bottom-left-radius: 3px;
-            border-bottom-right-radius: 3px;
-            box-shadow: 8px 8px 5px #cccccc;
-            .item {
-              height: 44px;
-              line-height: 44px;
-              padding-left: 10px;
-              &:hover {
-                .link {
-                  color: $mainColor;
-                }
-              }
-              .link {
-                text-decoration: none;
-                color: $mainFontColor;
-              }
-            }
-          }
-          &:hover {
-            .drop-menu {
-              display: block;
-            }
+            width: 0.80rem;
+            margin: 0.10rem 0.05rem;
           }
         }
       }
