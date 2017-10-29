@@ -5,15 +5,14 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        msg: 'This is home page'
-      };
-    }
-  };
+export default {
+  data () {
+    return {
+      msg: 'This is home page',
+      isLogin: false
+    };
+  },
+  components: {
+  }
+};
 </script>
-
-<style lang="scss" scoped>
-
-</style>
