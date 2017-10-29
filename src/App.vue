@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <head-top></head-top>
+    <head-top v-bind:isLogin=true></head-top>
     <article>
       <router-view></router-view>
     </article>
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style>
-@import "/static/normalize.css";
+@import "/static/css/normalize.css";
 html,
 body {
   margin: 0;
