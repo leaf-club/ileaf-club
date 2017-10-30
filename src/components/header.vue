@@ -1,29 +1,21 @@
 <template>
-  <header id="header">
-    <div class="left">
-      <div class="logo">
-        <img src="../assets/images/logo.png" alt="logo-picture">
-      </div>
+  <header>
+    <nav>
+      <router-link to="/" class="logo">
+        <img src="../assets/images/logo.png" width="150" alt="logo-picture">
+      </router-link>
       <ul>
-        <li :class="activeId === 1 ? 'active' : ''">
-          <router-link to="/home">首页</router-link>
-        </li>
-        <li :class="activeId === 2 ? 'active' : ''">
-          <router-link to="/article">博文</router-link>
-        </li>
-        <li :class="activeId === 3 ? 'active' : ''">
-          <router-link to="/work">作品</router-link>
-        </li>
-        <li :class="activeId === 4 ? 'active' : ''">
-          <router-link to="/about">关于</router-link>
-        </li>
+        <li><router-link to="/home">首页</router-link></li>
+        <li><router-link to="/article">博文</router-link></li>
+        <li><router-link to="/work">作品</router-link></li>
+        <li><router-link to="/about">关于</router-link></li>
       </ul>
-    </div>
-    <div class="right">
-      <div v-if="isLogin" class="login user-info">
-        <router-link to="/personal" class="avatar">
-          <img src="../assets/images/github-avatar.jpeg" alt="用户头像">
-        </router-link>
+    </nav>
+    <ul id="options">
+      <li v-if="isLogin" class="user-info">
+        <span class="avatar">
+          <img src="../assets/images/github-avatar.jpeg" width="40" alt="用户头像">
+        </span>
         <ul class="drop-menu">
           <li class="item">
             <router-link to="/personal" class="link">我的主页</router-link>
@@ -44,17 +36,16 @@
             <router-link to="/home" class="link">退出</router-link>
           </li>
         </ul>
-      </div>
-      <div v-if="!isLogin" class="login">
+      </li>
+      <li v-if="!isLogin">
         <router-link to="/login" class="btn-login">登录</router-link>
-      </div>
-      <div class="write">
+      </li>
+      <li class="write">
         <router-link to="/edit" class="btn-write">写文章</router-link>
-      </div>
-    </div>
+      </li>
+    </ul>
   </header>
 </template>
-
 <script>
   export default {
     data () {
@@ -76,160 +67,116 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/css/mixin';
-  #header {
+  @import '../assets/css/mixin.scss';
+  html {
+    font-size: 0.16rem;
+  }
+  header {
     width: 100%;
-    height: 80px;
-    background-color: #fff;
+    height: 0.60rem;
     position: fixed;
     top: 0;
-    left: 0;
-    .left {
-      float: left;
-      width: 60%;
-      margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    nav, #options {
+      display: flex;
+      font-size: 0.16rem;
+    }
+    nav {
+      margin-left: 0.20rem;
       .logo {
-        float: left;
-        height: 60px;
-        img {
-          width: 100%;
-          height: 100%;
-        }
+        display: flex;
+        align-items: center;
       }
       ul {
-        list-style: none;
         margin: 0;
-        padding-left: 10px;
-        height: 60px;
-        line-height: 60px;
+        padding-left: 0.20rem;
         display: flex;
-        font-size: 24px;
-        li {
-          width: 60px;
+        align-items: center;
+        list-style: none;
+        li{
+          width: 0.50rem;
           text-align: center;
-          margin-right: 10px;
-          a {
+          margin-right: 0.20rem;
+          a{
             color: $mainFontColor;
             text-decoration: none;
           }
-          &.active {
-            a {
-              color: $mainColor;
-            }
+          a.router-link-active, a:hover{
+            color: $mainColor;
           }
         }
       }
     }
-    .right {
-      float: right;
-      height: 100%;
-      margin-right: 30px;
-      font-size: 18px;
-      .login {
-        float: left;
-        display: flex;
-        align-items: center;
-        height: 60px;
-        margin-top: 10px;
-        .btn-login {
-            display: block;
-            position: relative;
-            text-decoration: none;
-            text-align: center;
-            width: 60px;
-            height: 44px;
-            line-height: 44px;
-            color: #999;
-            // &::after {
-            //   content: '';
-            //   display: block;
-            //   position: absolute;
-            //   top: 0;
-            //   left: 0;
-            //   box-sizing: border-box;
-            //   width: 100%;
-            //   height: 100%;
-            //   border: 1px solid #ccc;
-            //   border-radius: 8px;
-            // }
+    #options {
+      margin-right: 0.20rem;
+      padding: 0 0.20rem 0 0;
+      align-items: center;
+      list-style: none;
+      li {
+        width: 0.50rem;
+        text-align: center;
+        margin-right: 0.20rem;
+        a{
+          color: $mainFontColor;
+          text-decoration: none;
         }
-        .avatar {
-          display: block;
-          width: 44px;
-          height: 44px;
-          margin-right: 25px;
-          position: relative;
-          &::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: -20px;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid $mainColor;
-          }
-          img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-          }
+        a.router-link-active, a:hover {
+          color: $mainColor;
         }
-        &.user-info {
-          position: relative;
-          .drop-menu {
-            display: none;
-            list-style: none;
-            margin: 0;
-            padding:10px 0 0 0;
-            width: 100px;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            background-color: #fff;
-            border-bottom-left-radius: 3px;
-            border-bottom-right-radius: 3px;
-            box-shadow: 8px 8px 5px #cccccc;
-            .item {
-              height: 44px;
-              line-height: 44px;
-              padding-left: 10px;
-              &:hover {
-                .link {
-                  color: $mainColor;
-                }
-              }
-              .link {
-                text-decoration: none;
-                color: $mainFontColor;
-              }
-            }
-          }
+        .btn-write {
+          color: #fff;
+          background-color: $mainColor;
+          border-radius: 0.22rem;
+          display: inline-block;
+          width: 0.80rem;
+          height: 0.35rem;
+          line-height: 0.35rem;
           &:hover {
-            .drop-menu {
-              display: block;
-            }
+            background-color: $hoverColor;
+            color: #fff;
           }
         }
       }
-      .write {
-        float: left;
+      .user-info {
+        height: 0.60rem;
         display: flex;
         align-items: center;
-        margin-left: 20px;
-        height: 60px;
-        margin-top: 10px;
-        .btn-write {
+        width: 0.40rem;
+        &:hover {
+          ul {
             display: block;
-            position: relative;
-            text-decoration: none;
-            text-align: center;
-            width: 80px;
-            height: 44px;
-            line-height: 44px;
-            color: #fff;
-            background-color: $mainColor;
-            border-radius: 22px;
           }
+        }
+        .avatar {
+          width: 0.40rem;
+          height: 0.40rem;
+          display: inline-block;
+          cursor: pointer;
+          img {
+            border-radius: 50%;
+          }
+        }
+        ul {
+          display: none;
+          position: absolute;
+          top: 100%;
+          margin-top: -0.02rem;
+          padding: 0 0.10rem;
+          list-style: none;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 0.01rem solid rgba(0, 0, 0, -0.85);
+          border-radius: 0.01rem;
+          -webkit-box-shadow: 0 0.06rem 0.12rem rgba(0, 0, 0, 0.175);
+          box-shadow: 0 0.03rem 0.12rem rgba(0, 0, 0, 0.175);
+          li {
+            width: 0.80rem;
+            margin: 0.10rem 0.05rem;
+            text-align: left;
+          }
+        }
       }
     }
   }

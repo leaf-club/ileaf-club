@@ -2,6 +2,10 @@
 
 > A website by Vue.js
 
+## Project status
+
+developing...
+
 ## Build Setup
 
 ``` bash
