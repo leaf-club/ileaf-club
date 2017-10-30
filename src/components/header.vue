@@ -2,7 +2,7 @@
   <header>
     <nav>
       <router-link to="/" class="logo">
-        <img src="../../static/images/logo.png" width="150" alt="logo-picture">
+        <img src="../assets/images/logo.png" width="150" alt="logo-picture">
       </router-link>
       <ul>
         <li><router-link to="/home">首页</router-link></li>
@@ -14,7 +14,7 @@
     <ul id="options">
       <li v-if="isLogin" class="user-info">
         <span class="avatar">
-          <img src="../../static/images/github-avatar.jpeg" width="40" alt="用户头像">
+          <img src="../assets/images/github-avatar.jpeg" width="40" alt="用户头像">
         </span>
         <ul class="drop-menu">
           <li class="item">
@@ -67,7 +67,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../static/css/mixin.scss';
+  @import '../assets/css/mixin.scss';
   html {
     font-size: 0.16rem;
   }

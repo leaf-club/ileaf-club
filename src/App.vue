@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style>
-@import "/static/css/normalize.css";
+@import "/static/css/normalize.min.css";
 @media screen and (min-width: 1400px) {
   html {
     font-size: 110px;
