@@ -68,17 +68,12 @@
 
 <style lang="scss" scoped>
   @import '../../static/css/mixin.scss';
-  @media screen and (min-width: 1400px) {
-    html {
-      font-size: 110px;
-    }
-  }
   html {
     font-size: 0.16rem;
   }
   header {
     width: 100%;
-    height: 0.50rem;
+    height: 0.60rem;
     position: fixed;
     top: 0;
     display: flex;
@@ -89,21 +84,21 @@
       font-size: 0.16rem;
     }
     nav {
-      margin-left: 0.10rem;
+      margin-left: 0.20rem;
       .logo {
         display: flex;
         align-items: center;
       }
       ul {
         margin: 0;
-        padding-left: 0.10rem;
+        padding-left: 0.20rem;
         display: flex;
         align-items: center;
         list-style: none;
         li{
-          width: 0.50;
+          width: 0.50rem;
           text-align: center;
-          margin-right: 0.10rem;
+          margin-right: 0.20rem;
           a{
             color: $mainFontColor;
             text-decoration: none;
@@ -115,14 +110,14 @@
       }
     }
     #options {
-      margin-right: 0.10rem;
+      margin-right: 0.20rem;
       padding: 0 0.20rem 0 0;
       align-items: center;
       list-style: none;
       li {
         width: 0.50rem;
         text-align: center;
-        margin-right: 0.10rem;
+        margin-right: 0.20rem;
         a{
           color: $mainFontColor;
           text-decoration: none;
@@ -138,10 +133,14 @@
           width: 0.80rem;
           height: 0.35rem;
           line-height: 0.35rem;
+          &:hover {
+            background-color: $hoverColor;
+            color: #fff;
+          }
         }
       }
       .user-info {
-        height: 0.50rem;
+        height: 0.60rem;
         display: flex;
         align-items: center;
         width: 0.40rem;
@@ -175,6 +174,7 @@
           li {
             width: 0.80rem;
             margin: 0.10rem 0.05rem;
+            text-align: left;
           }
         }
       }
