@@ -35,12 +35,12 @@
             <div v-show="showPP" class="panel-publish">
               <h3>发布文章</h3>
               <h4>选择分类</h4>
-              <div class="type-box">
-                <span v-for="type in articleType" :key="type.id" class="type-item">{{ type.name }}</span>
+              <div class="type-box" @click="setArticleType">
+                <span v-for="atype in articleTypes" :key="atype.id" class="type-item" :data-id="atype.id">{{ atype.name }}</span>
               </div>
               <h4>标签</h4>
               <div class="tag-box">
-                <input type="text" class="input-tag" placeholder="输入标签（可不填）">
+                <input v-model="tag" type="text" class="input-tag" placeholder="输入标签（可不填）">
               </div>
               <div class="btn-box">
                 <button @click="publish" class="btn-sure-publish">确定并发布</button>
@@ -50,18 +50,24 @@
         </ul>
       </div>
     </div>
-    <mavon-editor :ishljs="true" :toolbars="toolbars" class="m-editor" ref="meditor"></mavon-editor>
+    <mavon-editor :ishljs="true" :toolbars="toolbars" :placeholder="mdPlaceholder" :value="mdCode" class="m-editor" ref="meditor"></mavon-editor>
   </div>
 </template>
 
 <script>
 import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
+
 export default {
   name: 'editor',
   data () {
     return {
-      title: '',
+      title: '',                        // 文章标题
+      typeId: 1,                          // 文章分类id
+      tag: '',                          // 文章标签
+      titlePlaceholder: '请输入标题',
+      mdCode: '',
+      mdPlaceholder: '开始编辑...',
       showES: false,
       showPP: false,
       toolbars: {
@@ -101,9 +107,18 @@ export default {
       }
     };
   },
-  props: ['articleType'],
+  props: ['articleTypes', 'article'],
   components: {
     mavonEditor
+  },
+  mounted () {
+    let article = this.$props.article;
+    if (article) {
+      this.title = article.title;
+      this.typeId = article.typeId;
+      this.tag = article.tag;
+      this.mdCode = article.mdCode;
+    }
   },
   methods: {
     toggleEditorSelector () {
@@ -114,16 +129,39 @@ export default {
       this.showES = false;
       this.showPP = !this.showPP;
     },
+    setArticleType (e) {
+      let target = e.target;
+      let types = this.$el.querySelectorAll('.type-box>span');
+      types.forEach((item) => {
+        item.className = 'type-item';
+      });
+      target.className = 'type-item selected';
+      this.typeId = target.dataset.id;
+    },
     saveDraft () {
       this.showES = false;
       this.showPP = false;
       let meditor = this.$refs.meditor;
-      this.$emit('saveDraft', this.title, meditor.d_value, meditor.d_render);
+      let draft = {
+        title: this.title,
+        typeId: this.typeId,
+        tag: this.tag,
+        mdCode: meditor.d_value,
+        htmlCode: meditor.d_render
+      };
+      this.$emit('saveDraft', draft);
     },
     publish () {
       this.showPP = false;
       let meditor = this.$refs.meditor;
-      this.$emit('publish', this.title, meditor.d_value, meditor.d_render);
+      let article = {
+        title: this.title,
+        typeId: this.typeId,
+        tag: this.tag,
+        mdCode: meditor.d_value,
+        htmlCode: meditor.d_render
+      };
+      this.$emit('publish', article);
     }
   }
 };
@@ -133,6 +171,7 @@ export default {
 @import '../assets/css/mixin';
 $panelBg: #f0f0f0;
 $borderColor: #aaa;
+
 #editor {
   height: 100%;
   min-height: 3.6rem;
