@@ -14,6 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "mavon-editor": "^2.3.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
@@ -48,6 +49,7 @@
     "express": "^4.14.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
+    "font-awesome": "^4.7.0",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.3",
