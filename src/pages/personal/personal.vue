@@ -6,15 +6,15 @@
         <p class="info-name">ysm</p>
         <ul>
           <li>
-            <i>55</i>
+            <i>{{totalBlog}}</i>
             <span>文章</span>
           </li>
           <li>
-            <i>55</i>
+            <i>{{totalWork}}</i>
             <span>作品</span>
           </li>
           <li>
-            <i>55</i>
+            <i>{{totalCollection}}</i>
             <span>收藏</span>
           </li>
         </ul>
@@ -47,8 +47,20 @@
 </template>
 <script>
   export default {
+    data () {
+      let totalBlog, totalWork, totalCollection;
+      return {
+        totalBlog, totalWork, totalCollection
+      };
+    },
     methods: {
       change () {
+      },
+      getBlogNum () {
+      },
+      getWorkNum () {
+      },
+      getCollectionNum () {
       }
     }
   };
