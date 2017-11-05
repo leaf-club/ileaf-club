@@ -37,9 +37,9 @@ body {
 }
 #app>article {
   margin: 0.7rem auto 0;
-  padding: 0.10rem;
+  /* padding: 0.10rem;
   max-width: 9.6rem;
-  background-color: #fff;
+  background-color: #fff; */
   font-size: 0.16rem;
 }
 </style>
