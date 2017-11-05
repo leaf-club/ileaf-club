@@ -36,10 +36,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 #app>article {
-  margin: 0.7rem auto 0;
-  padding: 0.10rem;
-  max-width: 9.6rem;
-  background-color: #fff;
+  /*margin: 0.7rem auto 0;*/
+  /*padding: 0.10rem;*/
+  /*max-width: 9.6rem;*/
+  /*background-color: #fff;*/
   font-size: 0.16rem;
 }
 </style>

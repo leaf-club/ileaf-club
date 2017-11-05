@@ -21,7 +21,8 @@
       </div>
       <div class="head-ul">
         <ul>
-          <li v-for="(item, index) in liList" @click="show(index)" :class="{on:item.isShow}">
+          <li v-for="(item, index) in liList" @click="show(index)"
+              :class="[currentIndex === index ? 'on' : '']">
             <img :src="'../../static/img/'+item.url+'.png'" alt="">
             <span>{{item.type}}</span>
           </li>
@@ -38,24 +39,21 @@
     data () {
       return {
         liList: [
-          {url: 'article', type: '文章', isShow: true},
-          {url: 'work', type: '作品', isShow: false},
-          {url: 'collection', type: '收藏', isShow: false},
-          {url: 'draft', type: '草稿', isShow: false}
+          {url: 'article', type: '文章'},
+          {url: 'work', type: '作品'},
+          {url: 'collection', type: '收藏'},
+          {url: 'draft', type: '草稿'}
         ],
         totalBlog: 0,
         totalWork: 0,
         totalCollection: 0,
         userName: 'ysm',
-        showIndex: 0
+        currentIndex: 1
       };
     },
     methods: {
       show (index) {
-        this.liList.forEach(item => {
-          item.isShow = false;
-        });
-        this.liList[index].isShow = true;
+        this.currentIndex = index;
       },
       getBlogNum () {
       },
