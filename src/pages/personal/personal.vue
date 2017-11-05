@@ -48,9 +48,10 @@
 <script>
   export default {
     data () {
-      let totalBlog, totalWork, totalCollection;
       return {
-        totalBlog, totalWork, totalCollection
+        totalBlog: 0,
+        totalWork: 0,
+        totalCollection: 0
       };
     },
     methods: {
