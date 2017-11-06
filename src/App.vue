@@ -10,6 +10,7 @@
 
 <script>
 import headTop from './components/header.vue';
+
 export default {
   name: 'app',
   components: {
@@ -19,7 +20,8 @@ export default {
 </script>
 
 <style>
-@import "/static/css/normalize.css";
+@import "/static/css/normalize.min.css";
+
 @media screen and (min-width: 1400px) {
   html {
     font-size: 110px;
@@ -37,9 +39,9 @@ body {
 }
 #app>article {
   margin: 0.7rem auto 0;
-  padding: 0.10rem;
+  /* padding: 0.10rem;
   max-width: 9.6rem;
-  background-color: #fff;
+  background-color: #fff; */
   font-size: 0.16rem;
 }
 </style>
