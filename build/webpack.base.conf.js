@@ -4,17 +4,27 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
+const lang = require('highlight.js-async-webpack/src/file.lang.hljs.js');
+const _entry= {
+    app: './src/main.js' // 原始入口
+    // vue: ['vue']
+};
+for (let i = 0; i < lang.length; i++) {
+    _entry[lang[i]] = ['mavon-editor/dist/js/' + lang[i] + '.js']
+}
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
 module.exports = {
-  entry: {
-    app: './src/main.js'
-  },
+  // entry: {
+  //   app: './src/main.js'
+  // },
+  entry: _entry,
   output: {
     path: config.build.assetsRoot,
-    filename: '[name].js',
+    filename: 'js/[name].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath

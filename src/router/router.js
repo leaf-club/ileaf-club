@@ -33,7 +33,7 @@ export default new Router({
       component: read
     },
     {
-      path: '/eidt',
+      path: '/edit',
       component: edit
     },
     {
