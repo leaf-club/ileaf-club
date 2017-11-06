@@ -35,8 +35,14 @@
             <div v-show="showPP" class="panel-publish">
               <h3>发布文章</h3>
               <h4>选择分类</h4>
-              <div class="type-box" @click="setArticleType">
-                <span v-for="atype in articleTypes" :key="atype.id" class="type-item" :data-id="atype.id">{{ atype.name }}</span>
+              <div class="type-box">
+                <span
+                  class="type-item"
+                  v-for="atype in articleTypes"
+                  :key="atype.id"
+                  :class="[atype.id === typeId ? 'selected' : '']"
+                  @click="setArticleType(atype.id)"
+                >{{ atype.name }}</span>
               </div>
               <h4>标签</h4>
               <div class="tag-box">
@@ -62,15 +68,16 @@ export default {
   name: 'editor',
   data () {
     return {
-      title: '',                        // 文章标题
-      typeId: 1,                          // 文章分类id
-      tag: '',                          // 文章标签
+      articleId: -1,                      // 文章id
+      title: '',                          // 文章标题
+      typeId: -1,                         // 文章分类id
+      tag: '',                            // 文章标签
       titlePlaceholder: '请输入标题',
       mdCode: '',
       mdPlaceholder: '开始编辑...',
       showES: false,
       showPP: false,
-      toolbars: {
+      toolbars: {                         // 编辑器工具栏配置
         bold: true, // 粗体
         italic: true, // 斜体
         header: true, // 标题
@@ -114,6 +121,7 @@ export default {
   mounted () {
     let article = this.$props.article;
     if (article) {
+      this.articleId = article.id;
       this.title = article.title;
       this.typeId = article.typeId;
       this.tag = article.tag;
@@ -129,20 +137,15 @@ export default {
       this.showES = false;
       this.showPP = !this.showPP;
     },
-    setArticleType (e) {
-      let target = e.target;
-      let types = this.$el.querySelectorAll('.type-box>span');
-      types.forEach((item) => {
-        item.className = 'type-item';
-      });
-      target.className = 'type-item selected';
-      this.typeId = target.dataset.id;
+    setArticleType (id) {
+      this.typeId = id;
     },
     saveDraft () {
       this.showES = false;
       this.showPP = false;
       let meditor = this.$refs.meditor;
       let draft = {
+        id: this.articleId,
         title: this.title,
         typeId: this.typeId,
         tag: this.tag,
@@ -152,9 +155,18 @@ export default {
       this.$emit('saveDraft', draft);
     },
     publish () {
+      if (!this.title) {
+        alert('文章标题不能为空哟^_^');
+        return;
+      }
+      if (!this.typeId) {
+        alert('请选择文章分类');
+        return;
+      }
       this.showPP = false;
       let meditor = this.$refs.meditor;
       let article = {
+        id: this.articleId,
         title: this.title,
         typeId: this.typeId,
         tag: this.tag,
@@ -170,7 +182,7 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/mixin';
 $panelBg: #f0f0f0;
-$borderColor: #aaa;
+$borderColor: #dfdfdf;
 
 #editor {
   height: 100%;
@@ -192,7 +204,7 @@ $borderColor: #aaa;
         display: block;
         width: 100%;
         height: 100%;
-        font-size: 0.24rem;
+        font-size: 0.20rem;
         font-weight: bold;
         &:focus {
           outline: none;
@@ -215,7 +227,7 @@ $borderColor: #aaa;
           align-items: center;
           .btn {
             text-decoration: none;
-            font-size: 0.24rem;
+            font-size: 0.20rem;
             color: $mainFontColor;
             &:hover {
               color: $mainColor;
@@ -266,7 +278,7 @@ $borderColor: #aaa;
           .panel-publish {
             position: absolute;
             top: 100%;
-            width: 3.5rem;
+            width: 3rem;
             right: 0.1rem;
             color: $mainFontColor;
             background-color: $panelBg;

@@ -45,6 +45,7 @@ export default {
     let id = this.$route.query.id;
     if (id) {
       this.article = {
+        id: 1234,
         title: '测试文章标题',
         typeId: 2,
         tag: 'Java',
