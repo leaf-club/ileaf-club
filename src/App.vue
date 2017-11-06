@@ -1,14 +1,10 @@
 <template>
   <div id="app">
-<<<<<<< HEAD
-    <router-view/>
-=======
-    <head-top></head-top>
+    <head-top v-bind:isLogin='true'></head-top>
     <article>
       <router-view></router-view>
     </article>
     <footer></footer>
->>>>>>> 318cca9... header，app
   </div>
 </template>
 
@@ -23,7 +19,12 @@ export default {
 </script>
 
 <style>
-@import "/static/normalize.css";
+@import "/static/css/normalize.css";
+@media screen and (min-width: 1400px) {
+  html {
+    font-size: 110px;
+  }
+}
 html,
 body {
   margin: 0;
@@ -35,8 +36,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 #app>article {
-  margin: 0.6rem auto 0;
-  max-width: 8rem;
+  margin: 0.7rem auto 0;
+  padding: 0.10rem;
+  max-width: 9.6rem;
   background-color: #fff;
   font-size: 0.16rem;
 }
