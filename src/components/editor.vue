@@ -7,10 +7,10 @@
       <div class="box right">
         <ul class="menu">
           <li class="item exchange">
-            <a href="#" @click="toggleEditorSelector" class="btn btn-exchange">
+            <a href="#" class="btn btn-exchange">
               <i class="fa fa-exchange"></i>&nbsp;切换
             </a>
-            <ul v-if="showES" class="select-box">
+            <ul class="select-box">
               <li class="box-item">
                 <a href="#" class="btn-tool">Markdown编辑器</a>
               </li>
@@ -28,11 +28,10 @@
             </a>
           </li>
           <li class="item publish">
-            <a href="#" @click="togglePublishPanel" class="btn btn-publish">
+            <a href="#" class="btn btn-publish">
               <i class="fa fa-share-square"></i>&nbsp;发布
-              <!-- <i class="fa fa-caret-down"></i> -->
             </a>
-            <div v-show="showPP" class="panel-publish">
+            <div class="panel-publish">
               <h3>发布文章</h3>
               <h4>选择分类</h4>
               <div class="type-box">
@@ -75,8 +74,6 @@ export default {
       titlePlaceholder: '请输入标题',
       mdCode: '',
       mdPlaceholder: '开始编辑...',
-      showES: false,
-      showPP: false,
       toolbars: {                         // 编辑器工具栏配置
         bold: true, // 粗体
         italic: true, // 斜体
@@ -129,20 +126,10 @@ export default {
     }
   },
   methods: {
-    toggleEditorSelector () {
-      this.showES = !this.showES;
-      this.showPP = false;
-    },
-    togglePublishPanel () {
-      this.showES = false;
-      this.showPP = !this.showPP;
-    },
     setArticleType (id) {
       this.typeId = id;
     },
     saveDraft () {
-      this.showES = false;
-      this.showPP = false;
       let meditor = this.$refs.meditor;
       let draft = {
         id: this.articleId,
@@ -163,7 +150,6 @@ export default {
         alert('请选择文章分类');
         return;
       }
-      this.showPP = false;
       let meditor = this.$refs.meditor;
       let article = {
         id: this.articleId,
@@ -221,15 +207,19 @@ $borderColor: #dfdfdf;
         display: flex;
         justify-content: flex-end;
         .item {
+          cursor: pointer;
           width: 1rem;
           height: 100%;
           display: flex;
+          justify-content: center;
           align-items: center;
           .btn {
             text-decoration: none;
             font-size: 0.20rem;
             color: $mainFontColor;
-            &:hover {
+          }
+          &:hover {
+            .btn {
               color: $mainColor;
             }
           }
@@ -237,6 +227,7 @@ $borderColor: #dfdfdf;
         .exchange {
           position: relative;
           .select-box {
+            display: none;
             position: absolute;
             top: 100%;
             left: -0.3rem;
@@ -272,10 +263,16 @@ $borderColor: #dfdfdf;
               transform: rotate(45deg);
             }
           }
+          &:hover {
+            .select-box {
+              display: block;
+            }
+          }
         }
         .publish {
           position: relative;
           .panel-publish {
+            display: none;
             position: absolute;
             top: 100%;
             width: 3rem;
@@ -357,6 +354,11 @@ $borderColor: #dfdfdf;
               border-right: none;
               border-bottom: none;
               transform: rotate(45deg);
+            }
+          }
+          &:hover {
+            .panel-publish {
+              display: block;
             }
           }
         }
