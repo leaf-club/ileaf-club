@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div v-if="ft_main" class="ft_main">
+    <div v-if="ftMain" class="ft_main">
       <div class="blogroll">
         <p class="topic">友情链接</p>
         <div class="links">
@@ -39,7 +39,7 @@
       };
     },
     props: {
-      ft_main: {
+      ftMain: {
         type: Boolean,
         required: true
       }

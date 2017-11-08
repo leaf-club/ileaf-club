@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>{{ msg }}</h1>
-    <foot :ft_main="ft_main"></foot>
+    <foot :ftMain="ftMain"></foot>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
     return {
       msg: 'This is home page',
       isLogin: false,
-      ft_main: true
+      ftMain: true
     };
   },
   components: {
