@@ -6,7 +6,7 @@ const vueLoaderConfig = require('./vue-loader.conf')
 
 const lang = require('highlight.js-async-webpack/src/file.lang.hljs.js');
 const _entry= {
-    app: './src/main.js' // 原始入口
+    app: './src/main.js', // 原始入口
     // vue: ['vue']
 };
 for (let i = 0; i < lang.length; i++) {
