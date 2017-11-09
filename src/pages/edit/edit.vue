@@ -6,6 +6,7 @@
 
 <script>
 import editor from '@/components/editor';
+import { saveArticle } from '@/service/getData';
 export default {
   data () {
     return {
@@ -17,7 +18,7 @@ export default {
         },
         {
           id: 2,
-          name: '后端'
+          name: '后台'
         },
         {
           id: 3,
@@ -61,13 +62,18 @@ export default {
     }
   },
   methods: {
-    saveDraft (draft) {
-      console.log('假装保存草稿成功^_^');
-      console.log('草稿为：' + draft);
+    async saveDraft (draft) {
+      draft.userId = 1;
+      // let res = await getTestUser(1);
+      console.log(Object.entries(draft));
+      let res = await saveArticle(draft);
+      console.log(res);
     },
-    publish (article) {
-      console.log('假装发布成功^_^');
-      console.log('文章为：' + article);
+    async publish (article) {
+      article.userId = 1;
+      console.log(Object.entries(article));
+      let res = await saveArticle(article);
+      console.log(res);
     }
   }
 };
