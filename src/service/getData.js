@@ -1,21 +1,17 @@
 import fetch from '../config/fetch';
-// 获取用户名
-export const getuserNmae = () => fetch('', {
+// 获取个人信息
+export const getUserInfo = () => fetch('', {
   type: 'get'
 });
-// 获取用户头像
-export const getHeadPic = () => fetch('', {
+// 获取个人文章
+export const getPersonalArticle = () => fetch('', {
   type: 'get'
 });
-// 获取博客数
-export const getTotalBlog = () => fetch('', {
+// 获取个人作品
+export const getPersonalWork = () => fetch('', {
   type: 'get'
 });
-// 获取作品数
-export const getTotalWork = () => fetch('', {
-  type: 'get'
-});
-// 获取收藏数
-export const getTotalCollection = () => fetch('', {
+// 获取个人收藏
+export const getCollection = () => fetch('', {
   type: 'get'
 });

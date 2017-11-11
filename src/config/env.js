@@ -5,7 +5,7 @@
 const baseUrl = '192.168.2.102/';
 const imgBaseUrl = '';
 
-export {
+export default {
   baseUrl,
   imgBaseUrl
-}
+};

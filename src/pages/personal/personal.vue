@@ -24,6 +24,7 @@
         <ul>
           <li v-for="(item, index) in liList" @click="show(index)"
               :class="[currentIndex === index ? 'on' : '']">
+            <!--<i :class="'fa fa-'+item.url"></i>-->
             <img :src="'../../static/img/'+item.url+'.png'" alt="item.type">
             <span>{{item.type}}</span>
           </li>
@@ -32,13 +33,25 @@
     </div>
     <div class="list">
       <!--文章，作品，收藏，草稿-->
-
+      <ul>
+        <li class="article">
+          <ul>
+            <!--<articleList-->
+              <!--:articles="articles1"-->
+              <!--:show-style="'full'"-->
+              <!--@like="like"-->
+              <!--@favorite="favorite"-->
+            <!--&gt;</articleList>-->
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
-  import {getTotalBlog, getTotalWork, getTotalCollection} from '../../service/getData';
-  // import article from '@/components/article';
+  // , getPersonalWork, getCollection
+  import {getPersonalArticle, getUserInfo} from '../../service/getData';
+  // import articleList from '@/components/articleList';
   export default {
     data () {
       return {
@@ -48,6 +61,13 @@
           {url: 'collection', type: '收藏'},
           {url: 'draft', type: '草稿'}
         ],
+//        liList: [
+//          {url: 'file-text', type: '文章'},
+//          {url: 'desktop', type: '作品'},
+//          {url: 'heart', type: '收藏'},
+//          {url: 'sticky-note', type: '草稿'}
+//        ],
+        articles: [], // 获取的文章列表
         totalBlog: 0,
         totalWork: 0,
         totalCollection: 0,
@@ -57,20 +77,21 @@
       };
     },
     mounted () {
-      // 获取博客数
-      getTotalBlog().then(res => {
+      // 获取用户个人信息
+      getUserInfo().then(res => {
         if (res.result.code === 200) {
-          this.totalBlog = res.data.count;
+          this.userName = res.data.userName;
+          this.headPic = res.data.avatar;
         } else {
         }
       });
-      // 获取作品数
-      getTotalWork().then(res => {
-        this.totalBlog = 0;
-      });
-      // 获取收藏数
-      getTotalCollection().then(res => {
-        this.totalBlog = 0;
+      // 获取个人文章信息
+      getPersonalArticle().then(res => {
+        if (res.result.code === 200) {
+          this.totalBlog = res.data.count;
+          this.articles = res.data.articles;
+        } else {
+        }
       });
     },
     methods: {

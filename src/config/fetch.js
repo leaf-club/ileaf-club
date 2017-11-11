@@ -15,7 +15,7 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
   if (type === 'GET') {
     let dataStr = ''; // 数据拼接字符串
     Object.keys(data).forEach(key => {
-      dataStr += ` $ { key }= $ { data[key] } &`;
+      dataStr += key + '=' + data[key] + '&';
     });
     if (dataStr !== '') {
       dataStr = dataStr.substr(0, dataStr.lastIndexOf('&'));
@@ -28,11 +28,11 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
       credentials: 'include',
       method: type,
       headers: {
-        'Accept': 'application/json',
+        // 'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      mode: "cors",
-      cache: "force-cache"
+      mode: 'cors',
+      cache: 'force-cache'
     };
 
     if (type === 'POST') {
@@ -54,7 +54,7 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
       if (window.XMLHttpRequest) {
         requestObj = new XMLHttpRequest();
       } else {
-        requestObj = new ActiveXObject ();
+        // requestObj = new ActiveXObject ();
       }
 
       let sendData = '';
