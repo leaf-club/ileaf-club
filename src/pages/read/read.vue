@@ -14,7 +14,4 @@
 </script>
 
 <style lang="scss" scoped>
-  body {
-    background: #ffffff;
-  }
 </style>
