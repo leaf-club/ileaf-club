@@ -1,6 +1,5 @@
 <template>
   <div class="personal">
-
     <div class="head">
       <div class="head-info">
         <img class="info-pic" :src="headPic" alt="">
@@ -71,14 +70,6 @@
       });
       // 获取收藏数
       getTotalCollection().then(res => {
-        this.totalBlog = 0;
-      });
-      // 获取用户名
-      getuserName().then(res => {
-        this.totalBlog = 0;
-      });
-      // 获取博客数
-      getTotalBlog().then(res => {
         this.totalBlog = 0;
       });
     },
