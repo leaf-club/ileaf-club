@@ -33,12 +33,13 @@
     </div>
     <div class="list">
       <!--文章，作品，收藏，草稿-->
-      
+
     </div>
   </div>
 </template>
 <script>
-  import {getTotalBlog, getTotalWork, getTotalCollection} from '../../service/getData'
+  import {getTotalBlog, getTotalWork, getTotalCollection} from '../../service/getData';
+  // import article from '@/components/article';
   export default {
     data () {
       return {
