@@ -1,8 +1,9 @@
 <template>
   <div class="personal">
+
     <div class="head">
       <div class="head-info">
-        <img class="info-pic" src="../../assets/images/github-avatar.jpeg" alt="">
+        <img class="info-pic" :src="headPic" alt="">
         <p class="info-name">{{userName}}</p>
         <ul>
           <li>
@@ -20,21 +21,24 @@
         </ul>
       </div>
       <div class="head-ul">
+        <!--列表选项切换-->
         <ul>
           <li v-for="(item, index) in liList" @click="show(index)"
               :class="[currentIndex === index ? 'on' : '']">
-            <img :src="'../../static/img/'+item.url+'.png'" alt="">
+            <img :src="'../../static/img/'+item.url+'.png'" alt="item.type">
             <span>{{item.type}}</span>
           </li>
         </ul>
       </div>
     </div>
     <div class="list">
-
+      <!--文章，作品，收藏，草稿-->
+      
     </div>
   </div>
 </template>
 <script>
+  import {getTotalBlog, getTotalWork, getTotalCollection} from '../../service/getData'
   export default {
     data () {
       return {
@@ -48,18 +52,38 @@
         totalWork: 0,
         totalCollection: 0,
         userName: 'ysm',
+        headPic: '../../static/img/github-avatar.jpeg',
         currentIndex: 1
       };
+    },
+    mounted () {
+      // 获取博客数
+      getTotalBlog().then(res => {
+        if (res.result.code === 200) {
+          this.totalBlog = res.data.count;
+        } else {
+        }
+      });
+      // 获取作品数
+      getTotalWork().then(res => {
+        this.totalBlog = 0;
+      });
+      // 获取收藏数
+      getTotalCollection().then(res => {
+        this.totalBlog = 0;
+      });
+      // 获取用户名
+      getuserName().then(res => {
+        this.totalBlog = 0;
+      });
+      // 获取博客数
+      getTotalBlog().then(res => {
+        this.totalBlog = 0;
+      });
     },
     methods: {
       show (index) {
         this.currentIndex = index;
-      },
-      getBlogNum () {
-      },
-      getWorkNum () {
-      },
-      getCollectionNum () {
       }
     }
   };
@@ -69,7 +93,7 @@
   .personal{
     position:relative;
     width:5.66rem;
-    margin:0.45rem auto;
+    margin:1.3rem auto;
     .head{
       width:100%;
       height:2rem;
@@ -177,5 +201,4 @@
 
     }
   }
-
 </style>
