@@ -13,9 +13,13 @@
         <p class="logon">登录</p>
         <a href="javascript:void(0)" class="forget">忘记密码</a>
         <div class="others">
-          <p>其他账号登录:</p>
-          <a href="javascript:void(0)" class="qq"></a>
-          <a href="javascript:void(0)" class="wx"></a>
+          <p>快捷登录:</p>
+          <a href="javascript:void(0)" class="qq">
+            <i class="fa fa-qq fa-fw fa-lg"></i>
+          </a>
+          <a href="javascript:void(0)" class="wx">
+            <i class="fa fa-weixin fa-fw fa-lg"></i>
+          </a>
         </div>
       </div>
       <div class="qrcode">
@@ -104,23 +108,29 @@
             float:left;
             line-height:0.64rem;
             margin:0;
-            height:100%;
+            height:0.64rem;
             font-size:0.16rem;
-            color:black;
+            color: rgba(9, 9, 10, 0.9);
           }
           a{
             float:left;
             display:block;
-            width:0.46rem;
-            height:0.46rem;
-            margin:0.09rem 0 0.09rem 0.5rem;
+            width:0.44rem;
+            height:0.44rem;
+            margin:0.13rem 0 0.13rem 0.4rem;
             cursor:pointer;
-            border-radius: 0.08rem;
+            border-radius: 50%;
+            text-decoration: none;
+            i{
+              display:block;
+              margin:0.13rem auto;
+              color:#fff;
+            }
             &.qq{
-              background: url("../../assets/images/qqlogin.png") no-repeat -0.01rem -0.01rem;
+              background-color:#498ad5;
             }
             &.wx{
-              background: url("../../assets/images/wxlogin.jpg") no-repeat 0 0 /0.46rem 0.46rem;
+              background-color:#00bb29;
             }
           }
         }
