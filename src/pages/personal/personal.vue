@@ -89,6 +89,8 @@
   .personal{
     position:relative;
     width:5.66rem;
+    background:#fff;
+    padding:0.4rem;
     margin:1.3rem auto;
     .head{
       width:100%;

@@ -36,8 +36,8 @@
     top:0;
     z-index:-1;
     width:100%;
-    height:6.27rem;
-    background:url("../../assets/images/loginbg.png");
+    height:100%;
+    background:url("../../assets/images/loginbg.png") repeat;
     .loginBox{
       width:6.8rem;
       height:3.6rem;
@@ -132,8 +132,8 @@
         margin:0.2rem 0.5rem 0;
         img{
           display:block;
-          width:100%;
-          height:100%;
+          width:1.51rem;
+          height:1.51rem;
         }
         p{
           width:100%;
