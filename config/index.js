@@ -31,7 +31,15 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // '/leaf-club-server': {
+      //   target: 'localhost:8081',
+      //   changeOrigin: true,
+      //   pathRewrite:{
+      //     '^/leaf-club-server': '/leaf-club-server'
+      //   }
+      // }
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

@@ -115,9 +115,9 @@ export default {
   components: {
     mavonEditor
   },
-  mounted () {
+  created () {
     let article = this.$props.article;
-    if (article) {
+    if (article && article.id) {
       this.articleId = article.id;
       this.title = article.title;
       this.typeId = article.typeId;
@@ -134,10 +134,12 @@ export default {
       let draft = {
         id: this.articleId,
         title: this.title,
+        abstract: meditor.d_render.substr(0, 200),
         typeId: this.typeId,
         tag: this.tag,
         mdCode: meditor.d_value,
-        htmlCode: meditor.d_render
+        htmlCode: meditor.d_render,
+        status: 0
       };
       this.$emit('saveDraft', draft);
     },
@@ -154,10 +156,12 @@ export default {
       let article = {
         id: this.articleId,
         title: this.title,
+        abstract: meditor.d_render.substr(0, 200),
         typeId: this.typeId,
         tag: this.tag,
         mdCode: meditor.d_value,
-        htmlCode: meditor.d_render
+        htmlCode: meditor.d_render,
+        status: 1
       };
       this.$emit('publish', article);
     }
