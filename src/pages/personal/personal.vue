@@ -2,7 +2,7 @@
   <div class="personal">
     <div class="head">
       <div class="head-info">
-        <img class="info-pic" :src="headPic" alt="">
+        <img class="info-pic" :src="headPic" alt="avatar">
         <p class="info-name">{{userName}}</p>
         <ul>
           <li>
@@ -20,28 +20,20 @@
         </ul>
       </div>
       <div class="head-ul">
-        <!--列表选项切换-->
         <ul>
           <li v-for="(item, index) in liList" @click="show(index)"
               :class="[currentIndex === index ? 'on' : '']">
-            <!--<i :class="'fa fa-'+item.url"></i>-->
-            <img :src="'../../static/img/'+item.url+'.png'" alt="item.type">
+            <i :class="'fa fa-'+item.url+ ' fa-2x fa-fw'"></i>
             <span>{{item.type}}</span>
           </li>
         </ul>
       </div>
     </div>
     <div class="list">
-      <!--文章，作品，收藏，草稿-->
       <ul>
         <li class="article">
           <ul>
-            <!--<articleList-->
-              <!--:articles="articles1"-->
-              <!--:show-style="'full'"-->
-              <!--@like="like"-->
-              <!--@favorite="favorite"-->
-            <!--&gt;</articleList>-->
+            <li v-show="currentIndex === index" v-for="(item, index) in 4">{{index}}</li>
           </ul>
         </li>
       </ul>
@@ -49,35 +41,26 @@
   </div>
 </template>
 <script>
-  // , getPersonalWork, getCollection
-  import {getPersonalArticle, getUserInfo} from '../../service/getData';
-  // import articleList from '@/components/articleList';
+  import { getPersonalArticle, getUserInfo } from '../../service/getData';
   export default {
     data () {
       return {
         liList: [
-          {url: 'article', type: '文章'},
-          {url: 'work', type: '作品'},
-          {url: 'collection', type: '收藏'},
-          {url: 'draft', type: '草稿'}
+          {url: 'file-text', type: '文章'},
+          {url: 'desktop', type: '作品'},
+          {url: 'heart', type: '收藏'},
+          {url: 'sticky-note', type: '草稿'}
         ],
-//        liList: [
-//          {url: 'file-text', type: '文章'},
-//          {url: 'desktop', type: '作品'},
-//          {url: 'heart', type: '收藏'},
-//          {url: 'sticky-note', type: '草稿'}
-//        ],
         articles: [], // 获取的文章列表
         totalBlog: 0,
         totalWork: 0,
         totalCollection: 0,
-        userName: 'ysm',
+        userName: 'leaf',
         headPic: '../../static/img/github-avatar.jpeg',
-        currentIndex: 1
+        currentIndex: 0
       };
     },
     mounted () {
-      // 获取用户个人信息
       getUserInfo().then(res => {
         if (res.result.code === 200) {
           this.userName = res.data.userName;
@@ -85,7 +68,6 @@
         } else {
         }
       });
-      // 获取个人文章信息
       getPersonalArticle().then(res => {
         if (res.result.code === 200) {
           this.totalBlog = res.data.count;
@@ -174,7 +156,7 @@
       }
       .head-ul{
         width:100%;
-        height:0.5rem;
+        height:0.4rem;
         padding-bottom:0.03rem;
         border-bottom:1px solid #aeaeae;
         ul{
@@ -185,13 +167,12 @@
           list-style:none;
           li{
             float:left;
-            padding-bottom:0.1rem;
             margin-left:0.3rem;
             cursor:pointer;
-            img{
+            i{
+              display:block;
               float:left;
-              width:0.4rem;
-              height:0.4rem;
+              margin-top:0.02rem;
             }
             span{
               float:left;

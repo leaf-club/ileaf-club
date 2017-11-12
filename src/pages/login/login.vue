@@ -4,11 +4,11 @@
       <div class="info">
         <div class="input name">
           <p>用户名</p>
-          <input type="text">
+          <input type="text" placeholder="请输入用户名">
         </div>
         <div class="input password">
           <p>密码</p>
-          <input type="password">
+          <input type="password" placeholder="请输入密码">
         </div>
         <p class="logon">登录</p>
         <span class="forget">忘记密码?</span>
@@ -70,7 +70,7 @@
           input{
             width:2.8rem;
             height:0.34rem;
-            margin:0.1rem 0;
+            margin:0.1rem 0 0.1rem 0.1rem;
             background-color: rgb(134,134,134);
             border:none;
             &:focus{
