@@ -33,7 +33,7 @@
       <ul>
         <li class="article">
           <ul>
-            <li v-show="currentIndex === index" v-for="(item, index) in 4">{{index}}</li>
+            <li v-show="currentIndex === index" v-for="(item, index) in 5">{{index}}</li>
           </ul>
         </li>
       </ul>
@@ -49,6 +49,7 @@
           {url: 'file-text', type: '文章'},
           {url: 'desktop', type: '作品'},
           {url: 'heart', type: '收藏'},
+          {url: 'thumbs-up', type: '点赞'},
           {url: 'sticky-note', type: '草稿'}
         ],
         articles: [], // 获取的文章列表
@@ -167,8 +168,9 @@
           list-style:none;
           li{
             float:left;
-            margin-left:0.3rem;
+            margin-left:0.15rem;
             cursor:pointer;
+            color:#000;
             i{
               display:block;
               float:left;

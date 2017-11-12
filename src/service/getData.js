@@ -6,4 +6,4 @@ export const saveArticle = (article) => fetch('leaf-club-server/article/save', a
 
 export const getUserInfo = (id) => fetch('leaf-club-server/user/getUserInfo?id=' + id);
 
-export const getPersonalArticle = (id) => fetch('leaf-club-server/article/getUserArticles' + id);
+export const getPersonalArticle = (id) => fetch('leaf-club-server/article/getUserArticles?id=' + id);

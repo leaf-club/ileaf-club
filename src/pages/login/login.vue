@@ -11,11 +11,11 @@
           <input type="password" placeholder="请输入密码">
         </div>
         <p class="logon">登录</p>
-        <span class="forget">忘记密码?</span>
+        <a href="javascript:void(0)" class="forget">忘记密码</a>
         <div class="others">
           <p>其他账号登录:</p>
-          <img src="../../assets/images/qqlogin.png" alt="qq登录">
-          <img src="../../assets/images/wxlogin.png" alt="qq登录">
+          <a href="javascript:void(0)" class="qq"></a>
+          <a href="javascript:void(0)" class="wx"></a>
         </div>
       </div>
       <div class="qrcode">
@@ -71,6 +71,7 @@
             width:2.8rem;
             height:0.34rem;
             margin:0.1rem 0 0.1rem 0.1rem;
+            color:#ccc;
             background-color: rgb(134,134,134);
             border:none;
             &:focus{
@@ -107,13 +108,20 @@
             font-size:0.16rem;
             color:black;
           }
-          img{
+          a{
             float:left;
-            width:0.64rem;
-            height:100%;
-            border-radius:50%;
-            margin-left:0.3rem;
+            display:block;
+            width:0.46rem;
+            height:0.46rem;
+            margin:0.09rem 0 0.09rem 0.5rem;
             cursor:pointer;
+            border-radius: 0.08rem;
+            &.qq{
+              background: url("../../assets/images/qqlogin.png") no-repeat -0.01rem -0.01rem;
+            }
+            &.wx{
+              background: url("../../assets/images/wxlogin.jpg") no-repeat 0 0 /0.46rem 0.46rem;
+            }
           }
         }
       }
