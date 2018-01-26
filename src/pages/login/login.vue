@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="qrcode">
-        <img src="../../assets/images/qrcode.png" alt="二维码">
+        <img src="../../assets/images/wechat-qr.jpg" alt="二维码">
         <p>微信扫一扫</p>
         <p>关注leafClub公众号</p>
       </div>

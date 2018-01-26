@@ -9,7 +9,7 @@
       </div>
       <div class="QRcode">
         <p class="topic">微信公众号</p>
-        <img src="../assets/images/WeChat-QR.jpg" alt="微信公众号" title="扫一扫">
+        <img src="../assets/images/wechat-qr.jpg" alt="微信公众号" title="扫一扫">
       </div>
       <div class="website">
         <p class="topic">LEAF CLUB</p>

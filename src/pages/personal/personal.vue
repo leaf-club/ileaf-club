@@ -22,7 +22,7 @@
       <div class="head-ul">
         <ul>
           <li v-for="(item, index) in liList" @click="show(index)"
-              :class="[currentIndex === index ? 'on' : '']">
+              :class="[currentIndex === index ? 'on' : '']" :key="item.url">
             <i :class="'fa fa-'+item.url+ ' fa-2x fa-fw'"></i>
             <span>{{item.type}}</span>
           </li>
@@ -33,15 +33,18 @@
       <ul>
         <li class="article">
           <ul>
-            <li v-show="currentIndex === index" v-for="(item, index) in 5">{{index}}</li>
+            <li v-show="currentIndex === index" v-for="(item, index) in 5" :key="item">{{index}}</li>
           </ul>
         </li>
       </ul>
     </div>
+    <foot :showAd="false"></foot>
   </div>
 </template>
 <script>
   import { getPersonalArticle, getUserInfo } from '../../service/getData';
+  import foot from '@/components/footer';
+  
   export default {
     data () {
       return {
@@ -60,6 +63,9 @@
         headPic: '../../static/img/github-avatar.jpeg',
         currentIndex: 0
       };
+    },
+    components: {
+      foot
     },
     mounted () {
       getUserInfo().then(res => {
