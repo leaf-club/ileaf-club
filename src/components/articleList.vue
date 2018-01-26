@@ -33,17 +33,19 @@
         <action
           v-if="showStyle === 'full'"
           :pid="article.id"
-          :action-data="{
+          :init-data="{
             liked: false,
             favorited: false,
             commented: false,
             likeCount: article.like === 0 ? '点赞' : article.like,
             favoriteCount: article.favorite === 0 ? '收藏' : article.favorite,
             commentCount: article.comment === 0 ? '评论' : article.comment,
-            readCount: article.read === 0 ? '阅读' : article.read
+            readCount: article.read === 0 ? '阅读' : article.read,
+            showLike: true,
+            showFavorite: true,
+            showComment: true,
+            showRead: true
           }"
-          @like="like"
-          @favorite="favorite"
         ></action>
       </li>
     </ul>
@@ -72,12 +74,6 @@ export default {
     }
   },
   methods: {
-    like (id, isLike) {
-      this.$emit('like', id, isLike);
-    },
-    favorite (id, isFavorite) {
-      this.$emit('favorite', id, isFavorite);
-    }
   }
 };
 </script>

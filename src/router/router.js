@@ -29,7 +29,7 @@ export default new Router({
       component: article
     },
     {
-      path: '/read',
+      path: '/read/:id',
       component: read
     },
     {

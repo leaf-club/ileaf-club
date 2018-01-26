@@ -1,25 +1,25 @@
 <template>
   <ul class="action">
-    <li class="item">
-      <a @click.prevent="like" class="btn" href="javasctipt:void(0)">
+    <li class="item" v-if="showLike">
+      <a @click.prevent="likeAction" class="btn" href="javasctipt:void(0)">
         <i class="fa" :class="liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'"></i>
         {{ likeCount }}
       </a>
     </li>
-    <li class="item">
-      <a @click.prevent="favorite" class="btn" href="javasctipt:void(0)">
+    <li class="item" v-if="showFavorite">
+      <a @click.prevent="favoriteAction" class="btn" href="javasctipt:void(0)">
         <i class="fa" :class="favorited ? 'fa-heart' : 'fa-heart-o'"></i>
         {{ favoriteCount }}
       </a>
     </li>
-    <li class="item">
-      <router-link class="btn" :to="{ path: '/read' + '#comment', query: { id: pid } }">
+    <li class="item" v-if="showComment">
+      <router-link class="btn" :to="'read/' + pid + '#comment'">
         <i class="fa" :class="commented ? 'fa-comments' : 'fa-comments-o'"></i>
         {{ commentCount }}
       </router-link>
     </li>
-    <li class="item">
-      <router-link class="btn" :to="{ path: '/read', query: { id: pid } }">
+    <li class="item" v-if="showRead">
+      <router-link class="btn" :to="'read/' + pid">
         <i class="fa fa-eye"></i>
         {{ readCount }}
       </router-link>
@@ -28,6 +28,9 @@
 </template>
 
 <script>
+  import { like, favorite } from '@/service/getData';
+  import { Storage } from '@/store/storage';
+  import { userInfoKey } from '@/store/storageConfig';
   export default {
     data () {
       return {
@@ -37,50 +40,80 @@
         likeCount: 0,
         favoriteCount: 0,
         commentCount: 0,
-        readCount: 0
+        readCount: 0,
+        showLike: false,
+        showFavorite: false,
+        showComment: false,
+        showRead: false
       };
     },
-    props: ['pid', 'actionData'],
+    props: {
+      pid: {
+        type: [Number, String],
+        default: -1
+      },
+      initData: Object
+    },
     created () {
-      Object.assign(this, this.$props.actionData);
+      Object.assign(this, this.$props.initData);
     },
     methods: {
-      like () {
+      async likeAction () {
+        let storage = new Storage();
+        let userInfo = storage.getItem(userInfoKey);
+        if (!userInfo) {
+          console.log('请登录后再进行操作！');
+          return;
+        }
         if (this.liked) {
-          this.liked = false;
-          if (this.likeCount === 1) {
-            this.likeCount = '点赞';
-          } else {
-            this.likeCount -= 1;
+          let res = await like({
+            id: this.pid,
+            userId: userInfo.userId,
+            operate: 0
+          });
+          if (res.result && res.result.code === 200) {
+            this.liked = false;
+            this.likeCount = res.data.like === 0 ? '点赞' : res.data.like;
           }
-          this.$emit('like', this.$props.pid, false);
         } else {
-          this.liked = true;
-          if (typeof this.likeCount === 'string') {
-            this.likeCount = 1;
-          } else {
-            this.likeCount += 1;
+          let res = await like({
+            id: this.pid,
+            userId: userInfo.userId,
+            operate: 1
+          });
+          if (res.result && res.result.code === 200) {
+            this.liked = true;
+            this.likeCount = res.data.like === 0 ? '点赞' : res.data.like;
           }
-          this.$emit('like', this.$props.pid, true);
         }
       },
-      favorite () {
+      async favoriteAction () {
+        let storage = new Storage();
+        let userInfo = storage.getItem(userInfoKey);
+        if (!userInfo) {
+          console.log('请登录后再进行操作！');
+          return;
+        }
         if (this.favorited) {
-          this.favorited = false;
-          if (this.favoriteCount === 1) {
-            this.favoriteCount = '收藏';
-          } else {
-            this.favoriteCount -= 1;
+          let res = await favorite({
+            id: this.pid,
+            userId: userInfo.userId,
+            operate: 0
+          });
+          if (res.result && res.result.code === 200) {
+            this.favorited = false;
+            this.favoriteCount = res.data.favorite === 0 ? '收藏' : res.data.favorite;
           }
-          this.$emit('favorite', this.$props.pid, false);
         } else {
-          this.favorited = true;
-          if (typeof this.favoriteCount === 'string') {
-            this.favoriteCount = 1;
-          } else {
-            this.favoriteCount += 1;
+          let res = await favorite({
+            id: this.pid,
+            userId: userInfo.userId,
+            operate: 1
+          });
+          if (res.result && res.result.code === 200) {
+            this.favorited = true;
+            this.favoriteCount = res.data.favorite === 0 ? '收藏' : res.data.favorite;
           }
-          this.$emit('favorite', this.$props.pid, true);
         }
       }
     }

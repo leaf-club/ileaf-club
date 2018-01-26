@@ -1,22 +1,25 @@
 <template>
   <div class="home">
-    <h4>cut</h4>
+    <hgroup>
+      <h2 class="home-title">首页</h2>
+      <h3 class="hot-article">热门文章推荐</h3>
+    </hgroup>
     <article-list
       :articles="articles"
       :show-style="'cut'"
     ></article-list>
-    <h4>full</h4>
-    <article-list
-      :articles="articles1"
-      :show-style="'full'"
-      @like="like"
-      @favorite="favorite"
-    ></article-list>
+    <h3>热门作品推荐</h3>
+    <work-list :work-list="works"></work-list>
+    <foot :showAd="true"></foot>
   </div>
 </template>
 
 <script>
 import articleList from '@/components/articleList';
+import workList from '@/components/workList';
+import foot from '@/components/footer';
+import { Storage } from '@/store/storage';
+import { userInfoKey } from '@/store/storageConfig';
 
 export default {
   data () {
@@ -68,108 +71,88 @@ export default {
           publishTime: '2017-11-06 19:35'
         }
       ],
-      articles1: [
+      works: [
         {
-          id: 101,
           author: {
+            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg',
             id: 1,
-            avatar: 'http://opzww7anw.bkt.clouddn.com/personal/avatar/github-avatar.jpeg',
-            nickname: 'Yann'
+            nickname: 'lemongirl'
           },
-          type: {
-            id: 1,
-            name: '设计'
-          },
-          tag: 'APP设计',
-          title: '为什么国外的 App 很少会有开屏广告？',
-          abstract: '古话说得好，先问是不是，再问为什么。对于「国外的 App 很少有开屏广告」这个论断其实未必正确，毕竟商业世界已经发展得很畅通和成熟了，一旦有什么可行的商业模式（比如开屏广告），那必然会被快速地借（chao）鉴（xi）...',
-          publishTime: '2017-11-07 19:15',
-          like: 25,
-          favorite: 30,
-          comment: 16,
-          read: 0
+          cover: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg',
+          title: '你画我猜',
+          like: 34,
+          favorite: 23,
+          comment: 237,
+          read: 66,
+          id: 1,
+          publishTime: '2017-10-18',
+          workLink: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg'
         },
         {
-          id: 102,
           author: {
-            id: 1,
-            avatar: 'http://opzww7anw.bkt.clouddn.com/personal/avatar/github-avatar.jpeg',
-            nickname: 'Yann'
+            avatar: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg',
+            id: 2,
+            nickname: 'liuliu'
           },
-          type: {
-            id: 1,
-            name: '前端'
-          },
-          tag: 'Vue',
-          title: 'Vue相关开源项目库汇总(史上最新最全)',
-          abstract: '内容 UI组件 开发框架 实用库 服务端 辅助工具 应用实例 Demo示例 UI组件 element ★13489 - 饿了么出品的Vue2的web UI工具套件 Vux ★8133 - 基于Vue……和WeUI的组件库 iview ★6634 - 基于 Vuejs 的开源 UI 组件库 mint-ui ★6253 - Vue 2的移动UI元素 muse-ui...',
-          publishTime: '2017-11-07 19:25',
-          like: 10,
-          favorite: 20,
-          comment: 0,
-          read: 40
+          cover: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg',
+          title: '几年级？',
+          like: 34,
+          favorite: 23,
+          comment: 237,
+          read: 66,
+          id: 2,
+          publishTime: '2017-10-23',
+          workLink: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg'
         },
         {
-          id: 103,
           author: {
-            id: 1,
-            avatar: 'http://opzww7anw.bkt.clouddn.com/personal/avatar/github-avatar.jpeg',
-            nickname: 'Yann'
+            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg',
+            id: 3,
+            nickname: 'HYL'
           },
-          type: {
-            id: 1,
-            name: '其他'
-          },
-          tag: '了不起的盖茨比',
-          title: '我终于有钱了，你还愿意爱我吗——读《了不起的盖茨比》',
-          abstract: '一个穷小子经过奋斗，成为了大富豪，后来在追求已成为他人妇的初恋女友的过程中，献出了生命……假如我今天给你讲这样一个故事，你肯定不会相信：都那么有钱了，还追他人妇？这就像我给现在的小孩讲梁山伯与祝英台的故事...',
-          publishTime: '2017-11-07 19:35',
-          like: 100,
-          favorite: 0,
-          comment: 300,
-          read: 400
+          cover: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg',
+          title: '心灵感应',
+          like: 34,
+          favorite: 23,
+          comment: 237,
+          read: 66,
+          id: 3,
+          publishTime: '2016-8-3',
+          workLink: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg'
         },
         {
-          id: 104,
           author: {
-            id: 1,
-            avatar: 'http://opzww7anw.bkt.clouddn.com/personal/avatar/github-avatar.jpeg',
-            nickname: 'Yann'
+            avatar: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg',
+            id: 4,
+            nickname: 'YXY'
           },
-          type: {
-            id: 1,
-            name: '其他'
-          },
-          tag: '了不起的盖茨比',
-          title: '我终于有钱了，你还愿意爱我吗——读《了不起的盖茨比》',
-          abstract: '一个穷小子经过奋斗，成为了大富豪，后来在追求已成为他人妇的初恋女友的过程中，献出了生命……假如我今天给你讲这样一个故事，你肯定不会相信：都那么有钱了，还追他人妇？这就像我给现在的小孩讲梁山伯与祝英台的故事...',
-          publishTime: '2017-11-07 19:35',
-          like: 0,
-          favorite: 0,
-          comment: 300,
-          read: 400
+          cover: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg',
+          title: '小鱼吃大鱼',
+          like: 34,
+          favorite: 23,
+          comment: 237,
+          read: 66,
+          id: 4,
+          publishTime: '2017-1-28',
+          workLink: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg'
         }
       ]
     };
   },
   components: {
-    articleList
+    articleList,
+    workList,
+    foot
+  },
+  mounted () {
+    // 模拟登录，写入用户信息到本地
+    let storage = new Storage();
+    storage.setItem(userInfoKey, {
+      userId: 1,
+      nickName: 'Yann'
+    });
   },
   methods: {
-    like (id, isLike) {
-      if (isLike) {
-        console.log('文章id = ' + id + ' 被点赞');
-      } else {
-        console.log('文章id = ' + id + ' 被取消点赞');
-      }
-    },
-    favorite (id, isFavorite) {
-      if (isFavorite) {
-        console.log('文章id = ' + id + ' 被收藏');
-      } else {
-        console.log('文章id = ' + id + ' 被取消收藏');
-      }
-    }
   }
 };
 </script>
