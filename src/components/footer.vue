@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div v-if="ftMain" class="ft_main">
+    <div v-if="showAd" class="ft-adv">
       <div class="blogroll">
         <p class="topic">友情链接</p>
         <div class="links">
@@ -13,7 +13,7 @@
       </div>
       <div class="website">
         <p class="topic">LEAF CLUB</p>
-        <router-link to="/home" class="linkHome">www.ileafclub.com</router-link>
+        <router-link to="/home" class="linkHome">www.leaf.club</router-link>
         <router-link to="/home" class="linkHome">涨知识，上leaf-club</router-link>
       </div>
     </div>
@@ -39,15 +39,18 @@
       };
     },
     props: {
-      ftMain: {
+      showAd: {
         type: Boolean,
         required: true
       }
+    },
+    mounted () {
+      // console.log(this.ftAd);
     }
   };
 </script>
 <style lang="scss" scoped>
-  footer .ft_main {
+  footer .ft-adv {
     display: flex;
     justify-content: center;
     width: 100%;

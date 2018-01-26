@@ -1,53 +1,70 @@
 <template>
-  <div class="workList">
-    <div v-for="item in workList" :key="item.id" class="workBox">
-      <a target="_blank" :href="item.workLink">
-        <img :src="item.cover" alt="" class="workCover" />
-        <div class="workAbstract">
-          <p class="workTitle">{{ item.title }}</p>
+  <div class="work-list">
+    <div v-for="work in workList" :key="work.id" class="work-box">
+      <a target="_blank" :href="work.workLink">
+        <img :src="work.cover" alt="" class="work-cover" />
+        <div class="work-abstract">
+          <p class="work-title">{{ work.title }}</p>
           <p>
-            <router-link class="workAuthor" :to="{ path: '/personal', query: {id: item.author.id} }">
-              {{ item.author.nickname }}
+            <router-link class="work-author" :to="{ path: '/personal', query: {id: work.author.id} }">
+              {{ work.author.nickname }}
             </router-link>
-            <span class="workTime">{{ item.publishTime }}</span>
+            <span class="work-time">{{ work.publishTime }}</span>
           </p>
         </div>
       </a>
+      <action
+        :pid="work.id"
+        :init-data="{
+          liked: false,
+          favorited: false,
+          commented: false,
+          likeCount: work.like === 0 ? '点赞' : work.like,
+          favoriteCount: work.favorite === 0 ? '收藏' : work.favorite,
+          commentCount: work.comment === 0 ? '评论' : work.comment,
+          readCount: work.read === 0 ? '查看' : work.read,
+          showLike: true,
+          showFavorite: true,
+          showComment: true,
+          showRead: true,
+        }"
+      ></action>
     </div>
   </div>
 </template>
 <script>
-  export default {
-    data () {
-      return {};
-    },
-    props: ['workList']
-  };
+import action from '@/components/action';
+
+export default {
+  data () {
+    return {};
+  },
+  components: {
+    action
+  },
+  props: ['workList'],
+  methods: {
+  }
+};
 </script>
 <style lang="scss" scoped>
-  .workList {
+  .work-list {
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     margin: 0.1rem;
 
-    .workBox{
+    .work-box{
       position: relative;
-      display: block;
-      width: 2rem;
-      height: 2rem;
-      margin: 0.1rem;
-      overflow: hidden;
-      // flex-grow: 1;
 
-      .workCover{
-        width: 100%;
-        height: 100%;
+      .work-cover{
+        width: 2.5rem;
+        height: 2rem;
         border-radius: 0.05rem;
       }
 
-      .workAbstract{
+      .work-abstract{
         position: absolute;
         left: 0;
         top: 1.1rem;
@@ -62,21 +79,21 @@
           margin: 0.03rem 0;
         }
 
-        .workTitle{
+        .work-title{
           font-size: 0.2rem;
         }
 
-        .workAuthor{
+        .work-author{
           font-size: 0.16rem;
           padding-right: 0.05rem;
           text-decoration: none;
           color: #fff;
         }
-        .workAuthor:hover{
+        .work-author:hover{
           text-decoration: underline;
         }
 
-        .workTime{
+        .work-time{
           font-size: 0.16rem;
           padding-right: 0.05rem;
         }
