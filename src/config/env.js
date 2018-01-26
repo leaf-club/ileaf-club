@@ -5,7 +5,7 @@
 const baseUrl = 'http://192.168.2.145:8080/';
 const imgBaseUrl = '';
 
-export {
+export default {
   baseUrl,
   imgBaseUrl
 };
