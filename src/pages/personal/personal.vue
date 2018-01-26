@@ -38,10 +38,13 @@
         </li>
       </ul>
     </div>
+    <foot :showAd="false"></foot>
   </div>
 </template>
 <script>
   import { getPersonalArticle, getUserInfo } from '../../service/getData';
+  import foot from '@/components/footer';
+  
   export default {
     data () {
       return {
@@ -60,6 +63,9 @@
         headPic: '../../static/img/github-avatar.jpeg',
         currentIndex: 0
       };
+    },
+    components: {
+      foot
     },
     mounted () {
       getUserInfo().then(res => {
