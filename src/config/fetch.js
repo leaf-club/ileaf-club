@@ -54,7 +54,7 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
       if (window.XMLHttpRequest) {
         requestObj = new XMLHttpRequest();
       } else {
-        requestObj = new window.ActiveXObject('Mscrosoft.XMLHttp');
+        requestObj = new window.ActiveXObject('Microsoft.XMLHTTP');
       }
 
       let sendData = '';
