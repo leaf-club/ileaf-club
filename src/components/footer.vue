@@ -34,7 +34,10 @@
       return {
         blogroll: [
           {name: '掘金网', link: 'https://juejin.im/', id: 1},
-          {name: '百度', link: 'https://www.baidu.com/', id: 2}
+          {name: '百度', link: 'https://www.baidu.com/', id: 2},
+          {name: '知乎', link: 'https://www.baidu.com/', id: 2},
+          {name: '极客', link: 'https://www.baidu.com/', id: 2},
+          {name: '新浪', link: 'https://www.baidu.com/', id: 2}
         ]
       };
     },
@@ -74,9 +77,16 @@
       }
 
       a{
+        display: inline-block;
+        font-size: .8em;
         text-decoration: none;
-        padding: 0.02rem 0.05rem;
+        padding: 0rem 0.05rem;
+        margin-bottom: 0.05rem;
         color: #43aabb;
+        border-right: 1px solid #43aabb;
+      }
+      a:last-child{
+        border-right: none;
       }
     }
 
@@ -109,6 +119,8 @@
       }
 
       .linkHome{
+        font-size: 0.8em;
+        line-height: 1.5;
         text-decoration: none;
         color: #43aabb;
       }

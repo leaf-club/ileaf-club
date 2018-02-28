@@ -79,6 +79,7 @@
     display: flex;
     justify-content: space-between;
     background: #fff;
+    z-index: 99;
     nav, #options {
       display: flex;
       font-size: 0.16rem;
@@ -128,7 +129,7 @@
         .btn-write {
           color: #fff;
           background-color: $mainColor;
-          border-radius: 0.22rem;
+          border-radius: 0.07rem;
           display: inline-block;
           width: 0.80rem;
           height: 0.35rem;

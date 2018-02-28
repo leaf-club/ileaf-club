@@ -53,11 +53,12 @@ export default {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    margin: 0.1rem;
+    padding: 0.2rem 0.3rem;
 
     .work-box{
       position: relative;
-
+      margin-right: 0.2rem;
+      
       .work-cover{
         width: 2.5rem;
         height: 2rem;
@@ -79,12 +80,12 @@ export default {
           margin: 0.03rem 0;
         }
 
-        .work-title{
-          font-size: 0.2rem;
-        }
+        // .work-title{
+        //   font-size: 0.2rem;
+        // }
 
         .work-author{
-          font-size: 0.16rem;
+          font-size: 0.13rem;
           padding-right: 0.05rem;
           text-decoration: none;
           color: #fff;

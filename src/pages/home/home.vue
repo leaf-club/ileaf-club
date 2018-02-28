@@ -1,15 +1,20 @@
 <template>
   <div class="home">
-    <hgroup>
+    <section class="content">
       <h2 class="home-title">首页</h2>
-      <h3 class="hot-article">热门文章推荐</h3>
-    </hgroup>
-    <article-list
-      :articles="articles"
-      :show-style="'cut'"
-    ></article-list>
-    <h3>热门作品推荐</h3>
-    <work-list :work-list="works"></work-list>
+      <section>
+        <h3 class="hot-article">热门文章推荐</h3>
+        <article-list
+          :articles="articles"
+          :show-style="'cut'"
+        ></article-list>
+      </section>
+      
+      <section>
+        <h3>热门作品推荐</h3>
+        <work-list :work-list="works"></work-list>
+      </section>
+    </section>
     <foot :showAd="true"></foot>
   </div>
 </template>
@@ -158,6 +163,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .home {
+   .content {
+    overflow-x: hidden;
+    margin-top: 0.2rem;
+    padding: 0.05rem .5rem;
+    h2 {
+      font-size: 1em;
+      color: #666;
+    }
+    section {
+      background-color: white;
+      padding: 0.3rem 0;
+      margin-bottom: 0.3rem;
+      h3 {
+        margin: 0 0.3rem;
+        padding-bottom: 0.1rem;
+        font-size: 1em;
+        font-weight: normal;
+        color: #4eb2a3;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+      }
+    }
+  } 
+  }
+  
 </style>
 

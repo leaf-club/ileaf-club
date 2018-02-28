@@ -2,6 +2,10 @@
   <div class="article-list">
     <ul class="list" :class="{ full: showStyle === 'full' }">
       <li class="article" v-for="article in articles" :key="article.id">
+        <router-link
+          class="title"
+          :to="{ path: '/read', query: { id: article.id } }"
+        >{{ article.title }}</router-link>
         <ul class="desc">
           <li class="item author">
             <router-link
@@ -25,10 +29,6 @@
           </li>
           <li class="item time">{{ article.publishTime }}</li>
         </ul>
-        <router-link
-          class="title"
-          :to="{ path: '/read', query: { id: article.id } }"
-        >{{ article.title }}</router-link>
         <p v-if="showStyle === 'full'" class="abstract">{{ article.abstract }}</p>
         <action
           v-if="showStyle === 'full'"
@@ -99,8 +99,9 @@ $actionBtnColor: #777;
       padding: 0.1rem;
       .desc {
         list-style: none;
-        padding: 0;
+        padding: 0.02rem 0;
         display: flex;
+        font-size: 0.13rem;
         .item {
           .item-author {
             color: $mainColor;
@@ -139,8 +140,7 @@ $actionBtnColor: #777;
       }
       .title {
         display: block;
-        margin: 0.1rem 0 0.05rem 0;
-        font-size: 0.18rem;
+        margin: 0.05rem 0 0.1rem 0;
         font-weight: normal;
         color: $titleColor;
         &:hover {
