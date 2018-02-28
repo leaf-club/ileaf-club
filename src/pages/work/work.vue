@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <h1>{{ msg }}</h1>
-    <workList :work-list="works"></workList>
+  <div class="work">
+    <div class="content">
+      <h2>{{ msg }}</h2>
+      <workList :work-list="works"></workList>
+    </div>
     <foot :showAd="false"></foot>
   </div>
 </template>
@@ -12,7 +14,7 @@ import foot from '@/components/footer';
 export default {
   data () {
     return {
-      msg: 'This is workList page',
+      msg: '作品',
       isLogin: false,
       works: [
         {
@@ -88,3 +90,15 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+  .work {
+    .content {
+      padding: 0.05rem .5rem;
+      h2 {
+        font-size: 1em;
+        color: #666;
+      }
+    }
+  }
+</style>
+

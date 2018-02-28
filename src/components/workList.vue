@@ -49,15 +49,16 @@ export default {
 </script>
 <style lang="scss" scoped>
   .work-list {
-    width: 100%;
+    // width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    padding: 0.2rem 0.3rem;
+    padding: 0.3rem 0.3rem 0.1rem 0.3rem;
+    background-color: white;
 
     .work-box{
       position: relative;
-      margin-right: 0.2rem;
+      margin-right: 0.15rem;
       
       .work-cover{
         width: 2.5rem;
