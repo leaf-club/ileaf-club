@@ -138,6 +138,11 @@ $actionBtnColor: #777;
           }
         }
       }
+      .abstract {
+        line-height: 2;
+        margin: 0.08rem 0;
+        color: #666;
+      }
       .title {
         display: block;
         margin: 0.05rem 0 0.1rem 0;
@@ -166,6 +171,7 @@ $actionBtnColor: #777;
                 height: 0.4rem;
                 line-height: 0.4rem;
                 vertical-align: 30%;
+                margin-left: 0.1rem;
               }
             }
           }

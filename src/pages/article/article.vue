@@ -1,9 +1,12 @@
 <template>
   <div class="article">
-    <article-list
-      :articles="articles"
-      :show-style="'full'"
-    ></article-list>
+    <div class="content">
+      <h2>博文</h2>
+      <article-list
+        :articles="articles"
+        :show-style="'full'"
+      ></article-list>
+    </div>
     <foot :showAd="false"></foot>
   </div>
 </template>
@@ -107,6 +110,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.article {
+  .content {
+    padding: 0.05rem .5rem;
+    h2 {
+      font-size: 1em;
+      color: #666;
+    }
+  }
+}
 </style>
 
