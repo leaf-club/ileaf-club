@@ -1,19 +1,23 @@
 <template>
   <div class="home">
     <section class="content">
-      <h2 class="home-title">首页</h2>
-      <section>
-        <h3 class="hot-article">热门文章推荐</h3>
-        <article-list
-          :articles="articles"
-          :show-style="'cut'"
-        ></article-list>
-      </section>
-      
-      <section>
-        <h3>热门作品推荐</h3>
-        <work-list :work-list="works"></work-list>
-      </section>
+      <main>
+        <h2 class="home-title">首页</h2>
+        <section>
+          <h3 class="hot-article">热门文章推荐</h3>
+          <article-list
+            :articles="articles"
+            :show-style="'cut'"
+          ></article-list>
+        </section>
+        <section>
+          <h3>热门作品推荐</h3>
+          <work-list :work-list="works"></work-list>
+        </section>
+      </main>
+      <aside>
+        <adsense :adList="adList"></adsense>
+      </aside>
     </section>
     <foot :showAd="true"></foot>
   </div>
@@ -25,6 +29,7 @@ import workList from '@/components/workList';
 import foot from '@/components/footer';
 import { Storage } from '@/store/storage';
 import { userInfoKey } from '@/store/storageConfig';
+import adsense from '@/components/adsense';
 
 export default {
   data () {
@@ -141,13 +146,26 @@ export default {
           publishTime: '2017-1-28',
           workLink: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg'
         }
+      ],
+      adList: [
+        {
+          name: '腾讯云',
+          imageUrl: 'https://user-gold-cdn.xitu.io/15198101796035def81fb3ff58f95ec40ab6cb5828348.jpg?imageView2/1/q/85/format/webp/interlace/1',
+          target: 'https://cloud.tencent.com/solution/la?fromSource=gwzcw.781155.781155.781155'
+        },
+        {
+          name: 'leaf',
+          imageUrl: 'https://user-gold-cdn.xitu.io/15198101796035def81fb3ff58f95ec40ab6cb5828348.jpg?imageView2/1/q/85/format/webp/interlace/1',
+          target: 'https://cloud.tencent.com/solution/la?fromSource=gwzcw.781155.781155.781155'
+        }
       ]
     };
   },
   components: {
     articleList,
     workList,
-    foot
+    foot,
+    adsense
   },
   mounted () {
     // 模拟登录，写入用户信息到本地
@@ -168,9 +186,19 @@ export default {
     overflow-x: hidden;
     margin-top: 0.2rem;
     padding: 0.05rem .5rem;
+    position: relative;
     h2 {
-      font-size: 1em;
+      font-size: 0.14rem;
       color: #666;
+    }
+    main {
+      margin-right: 2.6rem;
+      position: relative;
+    }
+    aside {
+      position: absolute;
+      top: 0.44rem;
+      right: 0.5rem;
     }
     section {
       background-color: white;

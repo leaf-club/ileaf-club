@@ -1,8 +1,13 @@
 <template>
   <div class="work">
     <div class="content">
-      <h2>{{ msg }}</h2>
-      <workList :work-list="works"></workList>
+      <main>
+        <h2>{{ msg }}</h2>
+        <workList :work-list="works"></workList>
+      </main>
+      <aside>
+        <adsense :adList="adList"></adsense>
+      </aside>
     </div>
     <foot :showAd="false"></foot>
   </div>
@@ -11,6 +16,8 @@
 <script>
 import workList from '@/components/workList';
 import foot from '@/components/footer';
+import adsense from '@/components/adsense';
+
 export default {
   data () {
     return {
@@ -81,12 +88,25 @@ export default {
           publishTime: '2017-1-28',
           workLink: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg'
         }
+      ],
+      adList: [
+        {
+          name: '腾讯云',
+          imageUrl: 'https://user-gold-cdn.xitu.io/15198101796035def81fb3ff58f95ec40ab6cb5828348.jpg?imageView2/1/q/85/format/webp/interlace/1',
+          target: 'https://cloud.tencent.com/solution/la?fromSource=gwzcw.781155.781155.781155'
+        },
+        {
+          name: 'leaf',
+          imageUrl: 'https://user-gold-cdn.xitu.io/15198101796035def81fb3ff58f95ec40ab6cb5828348.jpg?imageView2/1/q/85/format/webp/interlace/1',
+          target: 'https://cloud.tencent.com/solution/la?fromSource=gwzcw.781155.781155.781155'
+        }
       ]
     };
   },
   components: {
     foot,
-    workList
+    workList,
+    adsense
   }
 };
 </script>
@@ -94,9 +114,19 @@ export default {
   .work {
     .content {
       padding: 0.05rem .5rem;
+      position: relative;
       h2 {
-        font-size: 1em;
+        font-size: 0.14rem;
         color: #666;
+      }
+      main {
+        margin-right: 2.6rem;
+        position: relative;
+      }
+      aside {
+        position: absolute;
+        top: 0.44rem;
+        right: 0.5rem;
       }
     }
   }

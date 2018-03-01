@@ -1,11 +1,17 @@
 <template>
   <div class="article">
     <div class="content">
-      <h2>博文</h2>
-      <article-list
-        :articles="articles"
-        :show-style="'full'"
-      ></article-list>
+      <main>
+        <h2>博文</h2>
+        <article-list
+          :articles="articles"
+          :show-style="'full'"
+        ></article-list>
+      </main>
+      <aside>
+        <adsense :adList="adList"></adsense>
+      </aside>
+      
     </div>
     <foot :showAd="false"></foot>
   </div>
@@ -14,6 +20,7 @@
 <script>
 import articleList from '@/components/articleList';
 import foot from '@/components/footer';
+import adsense from '@/components/adsense';
 
 export default {
   data () {
@@ -99,12 +106,25 @@ export default {
           comment: 300,
           read: 400
         }
+      ],
+      adList: [
+        {
+          name: '腾讯云',
+          imageUrl: 'https://user-gold-cdn.xitu.io/15198101796035def81fb3ff58f95ec40ab6cb5828348.jpg?imageView2/1/q/85/format/webp/interlace/1',
+          target: 'https://cloud.tencent.com/solution/la?fromSource=gwzcw.781155.781155.781155'
+        },
+        {
+          name: 'leaf',
+          imageUrl: 'https://user-gold-cdn.xitu.io/15198101796035def81fb3ff58f95ec40ab6cb5828348.jpg?imageView2/1/q/85/format/webp/interlace/1',
+          target: 'https://cloud.tencent.com/solution/la?fromSource=gwzcw.781155.781155.781155'
+        }
       ]
     };
   },
   components: {
     articleList,
-    foot
+    foot,
+    adsense
   }
 };
 </script>
@@ -113,9 +133,19 @@ export default {
 .article {
   .content {
     padding: 0.05rem .5rem;
+    position: relative;
     h2 {
-      font-size: 1em;
+      font-size: 0.14rem;
       color: #666;
+    }
+    main {
+      margin-right: 2.6rem;
+      position: relative;
+    }
+    aside {
+      position: absolute;
+      top: 0.44rem;
+      right: 0.5rem;
     }
   }
 }
