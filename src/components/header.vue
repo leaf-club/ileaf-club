@@ -79,7 +79,7 @@
     display: flex;
     justify-content: space-between;
     background: #fff;
-    z-index: 99;
+    z-index: 999999;
     nav, #options {
       display: flex;
       font-size: 0.16rem;
@@ -138,6 +138,11 @@
             background-color: $hoverColor;
             color: #fff;
           }
+        }
+      }
+      li.write {
+        a.btn-write {
+          color: white;
         }
       }
       .user-info {
