@@ -35,9 +35,9 @@
         blogroll: [
           {name: '掘金网', link: 'https://juejin.im/', id: 1},
           {name: '百度', link: 'https://www.baidu.com/', id: 2},
-          {name: '知乎', link: 'https://www.baidu.com/', id: 2},
-          {name: '极客', link: 'https://www.baidu.com/', id: 2},
-          {name: '新浪', link: 'https://www.baidu.com/', id: 2}
+          {name: '知乎', link: 'https://www.baidu.com/', id: 3},
+          {name: '极客', link: 'https://www.baidu.com/', id: 4},
+          {name: '新浪', link: 'https://www.baidu.com/', id: 5}
         ]
       };
     },
