@@ -133,17 +133,17 @@
     align-items: center;
     width: 100%;
     font-size: 0.12rem;
-    background-color: #eee;
+    background-color: #434343;
+    border-top: 1px solid rgba(255,255,255,.2);
     padding: 0.08rem 0;
-
     .nav-item{
       text-decoration: none;
-      color: #333;
+      color: #eee;
       padding: 0 0.05rem;
     }
     
     p{
-      margin: 0.03rem 0 0;
+      margin: 0.05rem 0 0;
       color: #000;
     }
   }
