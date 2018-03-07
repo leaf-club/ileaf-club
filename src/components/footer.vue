@@ -23,7 +23,7 @@
         <router-link to="/about" class="nav-item">联系方式</router-link>
         <router-link to="/about" class="nav-item">加入我们</router-link>
       </nav>
-      <p class="copyright">© 2017 Leaf-Club. All rights reserved.</p>
+      <p class="copyright">© 2018 Leaf-Club. All rights reserved.</p>
       <p class="info">鄂ICP备0652314号</p>
     </div>
   </footer>
@@ -35,9 +35,9 @@
         blogroll: [
           {name: '掘金网', link: 'https://juejin.im/', id: 1},
           {name: '百度', link: 'https://www.baidu.com/', id: 2},
-          {name: '知乎', link: 'https://www.baidu.com/', id: 2},
-          {name: '极客', link: 'https://www.baidu.com/', id: 2},
-          {name: '新浪', link: 'https://www.baidu.com/', id: 2}
+          {name: '知乎', link: 'https://www.baidu.com/', id: 3},
+          {name: '极客', link: 'https://www.baidu.com/', id: 4},
+          {name: '新浪', link: 'https://www.baidu.com/', id: 5}
         ]
       };
     },
@@ -140,11 +140,13 @@
       text-decoration: none;
       color: #eee;
       padding: 0 0.05rem;
+      line-height: 1.5;
     }
     
     p{
       margin: 0.05rem 0 0;
       color: #000;
+      line-height: 1.5;
     }
   }
 </style>
