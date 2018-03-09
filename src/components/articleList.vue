@@ -4,7 +4,7 @@
       <li class="article" v-for="article in articles" :key="article.id">
         <router-link
           class="title"
-          :to="{ path: '/read', query: { id: article.id } }"
+          :to="{ path: '/read/' + article.id }"
         >{{ article.title }}</router-link>
         <ul class="desc">
           <li class="item author">
@@ -33,6 +33,7 @@
         <action
           v-if="showStyle === 'full'"
           :pid="article.id"
+          :type="0"
           :init-data="{
             liked: false,
             favorited: false,

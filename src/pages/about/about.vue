@@ -50,14 +50,14 @@ export default {
   data () {
     return {
       leaferList: [
-        {name: '刘春柳', area: '前端开发', avatar: '../../static/img/liuchunliu.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她有博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
-        {name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她有博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
-        {name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她有博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
-        {name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她有博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
-        {name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她有博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
-        {name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她有博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
-        {name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她有博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
-        {name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她有博学多识，切实而且勤劳，更重要的是还心怀诗和远方'}
+        {id: 1, name: '刘春柳', area: '前端开发', avatar: '../../static/img/liuchunliu.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
+        {id: 2, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
+        {id: 3, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
+        {id: 4, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
+        {id: 5, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
+        {id: 6, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
+        {id: 7, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
+        {id: 8, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'}
       ]
     };
   },

@@ -13,7 +13,7 @@
         </ul>
       </nav>
       <ul id="options">
-        <li v-if="!isLogin" class="user-info">
+        <li v-if="isLogin" class="user-info">
           <span class="avatar">
             <img src="../assets/images/github-avatar.jpeg" width="40" alt="用户头像">
           </span>
@@ -38,7 +38,7 @@
             </li>
           </ul>
         </li>
-        <li v-if="isLogin" class="login">
+        <li v-if="!isLogin" class="login">
           <span class="btn-login" @click="login">登录</span>
           <span class="btn-register" @click="register">注册</span>
         </li>

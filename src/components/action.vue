@@ -50,7 +50,11 @@
     props: {
       pid: {
         type: [Number, String],
-        default: -1
+        required: true
+      },
+      type: {
+        type: [Number],
+        required: true
       },
       initData: Object
     },
@@ -68,6 +72,7 @@
         if (this.liked) {
           let res = await like({
             id: this.pid,
+            type: this.type,
             userId: userInfo.userId,
             operate: 0
           });
@@ -78,6 +83,7 @@
         } else {
           let res = await like({
             id: this.pid,
+            type: this.type,
             userId: userInfo.userId,
             operate: 1
           });
@@ -97,6 +103,7 @@
         if (this.favorited) {
           let res = await favorite({
             id: this.pid,
+            type: this.type,
             userId: userInfo.userId,
             operate: 0
           });
@@ -107,6 +114,7 @@
         } else {
           let res = await favorite({
             id: this.pid,
+            type: this.type,
             userId: userInfo.userId,
             operate: 1
           });

@@ -15,6 +15,7 @@
       </a>
       <action
         :pid="work.id"
+        :type="1"
         :init-data="{
           liked: false,
           favorited: false,

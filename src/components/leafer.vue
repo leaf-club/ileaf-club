@@ -1,6 +1,6 @@
 <template>
   <div class="leafer-list">
-    <div  v-for="leafer in leaferList" :key="leafer.name" class="leafer">
+    <div  v-for="leafer in leaferList" :key="leafer.id" class="leafer">
       <div class="leafer-avator" :style="'background-image: url('+leafer.avatar+');background-size:cover;'"></div>
       <p class="leafer-info"><span class="name">{{leafer.name}}</span><span class="area">{{leafer.area}}</span></p>
       <p class="leafer-detail">{{leafer.detail}}</p>
