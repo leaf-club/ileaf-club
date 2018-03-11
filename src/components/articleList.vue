@@ -1,47 +1,47 @@
 <template>
   <div class="article-list">
     <ul class="list" :class="{ full: showStyle === 'full' }">
-      <li class="article" v-for="article in articles" :key="article.id">
+      <li class="article" v-for="article in articles" :key="article._id">
         <router-link
           class="title"
-          :to="{ path: '/read/' + article.id }"
+          :to="{ path: '/read/' + article._id }"
         >{{ article.title }}</router-link>
         <ul class="desc">
           <li class="item author">
             <router-link
               v-if="showStyle === 'cut'"
               class="item-author"
-              :to="{ path: '/personal', query: { id: article.author.id } }"
-            >{{ article.author.nickname }}</router-link>
+              :to="{ path: '/personal', query: { id: article.userInfo._id } }"
+            >{{ article.userInfo.userName }}</router-link>
             <router-link
               v-if="showStyle === 'full'"
               class="item-author"
-              :to="{ path: '/personal', query: { id: article.author.id } }">
-              <img class="avatar" :src="article.author.avatar" alt="avatar">
-              <span class="nickname">{{ article.author.nickname }}</span>
+              :to="{ path: '/personal', query: { id: article.userInfo._id } }">
+              <img class="avatar" :src="article.userInfo.avatar" alt="avatar">
+              <span class="nickname">{{ article.userInfo.userName }}</span>
             </router-link>
           </li>
           <li class="item type">
-            <router-link to="#" class="item-type">{{ article.type.name }}</router-link>
+            <router-link to="#" class="item-type">{{ article.typeName }}</router-link>
           </li>
           <li class="item tag">
             <router-link to="#" class="item-tag">{{ article.tag }}</router-link>
           </li>
-          <li class="item time">{{ article.publishTime }}</li>
+          <li class="item time">{{ article.updateTime }}</li>
         </ul>
         <p v-if="showStyle === 'full'" class="abstract">{{ article.abstract }}</p>
         <action
           v-if="showStyle === 'full'"
-          :pid="article.id"
+          :pid="article._id"
           :type="0"
           :init-data="{
             liked: false,
             favorited: false,
             commented: false,
-            likeCount: article.like === 0 ? '点赞' : article.like,
-            favoriteCount: article.favorite === 0 ? '收藏' : article.favorite,
-            commentCount: article.comment === 0 ? '评论' : article.comment,
-            readCount: article.read === 0 ? '阅读' : article.read,
+            likeCount: article.likeNum === 0 ? '点赞' : article.likeNum,
+            favoriteCount: article.favoriteNum === 0 ? '收藏' : article.favoriteNum,
+            commentCount: article.commentNum === 0 ? '评论' : article.commentNum,
+            readCount: article.readNum === 0 ? '阅读' : article.readNum,
             showLike: true,
             showFavorite: true,
             showComment: true,
