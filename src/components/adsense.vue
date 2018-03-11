@@ -66,14 +66,20 @@
         padding-left: 0.04rem;
         padding-right: 0.04rem;
       }
-      span.inco {
+      .inco {
         display: none;
       }
-      span.advertise:hover .inco {
-        display: inline;
+      .advertise {
+        &:hover {
+          .inco {
+            display: inline;
+          }
+        }
       }
-      span.inco:hover {
-        display: none;
+      .inco {
+        &:hover {
+          display: none;
+        }
       }
     }
   }

@@ -12,3 +12,11 @@ export const getPersonalArticle = (id) => fetch('leaf-club-server/article/getUse
 export const like = data => fetch(urlPart + 'article/like', data, 'post');
 
 export const favorite = data => fetch(urlPart + 'article/favorite', data, 'post');
+
+export const getRecommendBlogList = data => fetch(urlPart + 'blog/getRecommendBlogList', data);
+
+export const getRecommendWorkList = data => fetch(urlPart + 'work/getRecommendWorkList', data);
+
+export const getBlogList = data => fetch(urlPart + 'blog/getBlogList', data);
+
+export const getWorkList = data => fetch(urlPart + 'blog/getWorkList', data);
