@@ -58,12 +58,7 @@ export default {
     adsense
   },
   mounted () {
-    // 模拟登录，写入用户信息到本地
     let storage = new Storage();
-    storage.setItem(userInfoKey, {
-      userId: 1,
-      userName: 'Yann'
-    });
     let userInfo = storage.getItem(userInfoKey);
     let params = {
       userId: userInfo.userId,

@@ -26,30 +26,57 @@
             <ul>
               <li v-for="(item, index) in liList" @click="show(index)"
                   :class="[currentIndex === index ? 'on' : '']" :key="item.url">
-                <i :class="'fa fa-'+item.url+ ' fa-2x fa-fw'"></i>
+                <i :class="'fa fa-' + item.url + ' fa-2x fa-fw'"></i>
                 <span>{{item.type}}</span>
               </li>
             </ul>
           </div>
         </div>
         <div class="list">
-          <ul>
-            <li class="article">
-              <ul>
-                <li v-show="currentIndex === index" v-for="(item, index) in 5" :key="item">{{index}}</li>
-              </ul>
-            </li>
-          </ul>
+          <article-list
+            :articles="articles"
+            :show-style="'full'"
+            v-show="currentIndex === 0"
+          ></article-list>
+          <work-list
+            :work-list="works"
+            v-show="currentIndex === 1"
+          ></work-list>
+          <div v-show="currentIndex === 2">
+            <h2>文章</h2>
+            <article-list
+              :articles="favorited.articles"
+              :show-style="'full'"
+            ></article-list>
+            <h2>作品</h2>
+            <work-list
+              :work-list="favorited.works"
+            ></work-list>
+          </div>
+          <div v-show="currentIndex === 3">
+            <h2>文章</h2>
+            <article-list
+              :articles="liked.articles"
+              :show-style="'full'"
+            ></article-list>
+            <h2>作品</h2>
+            <work-list
+              :work-list="liked.works"
+            ></work-list>
+          </div>
         </div>
       </main>
     </div>
-    
     <foot :showAd="false"></foot>
   </div>
 </template>
 <script>
-  import { getPersonalArticle, getUserInfo } from '../../service/getData';
+  import { getUserInfo, getPersonalBlog, getPersonalWork, getPersonalFavorited, getPersonalLiked, getPersonalDraft } from '@/service/getData';
   import foot from '@/components/footer';
+  import articleList from '@/components/articleList';
+  import workList from '@/components/workList';
+  import { Storage } from '@/store/storage';
+  import { userInfoKey } from '@/store/storageConfig';
   
   export default {
     data () {
@@ -61,7 +88,12 @@
           {url: 'thumbs-o-up', type: '赞过'},
           {url: 'sticky-note-o', type: '草稿'}
         ],
+        userInfo: {},
         articles: [], // 获取的文章列表
+        works: [],
+        favorited: {},
+        liked: {},
+        drafts: [],
         totalBlog: 0,
         totalWork: 0,
         totalCollection: 0,
@@ -71,27 +103,98 @@
       };
     },
     components: {
-      foot
+      foot,
+      articleList,
+      workList
+    },
+    created () {
+      let storage = new Storage();
+      this.userInfo = storage.getItem(userInfoKey);
     },
     mounted () {
-      getUserInfo().then(res => {
+      getUserInfo(this.userInfo.userId).then(res => {
         if (res.result.code === 200) {
           this.userName = res.data.userName;
           this.headPic = res.data.avatar;
         } else {
         }
       });
-      getPersonalArticle().then(res => {
-        if (res.result.code === 200) {
-          this.totalBlog = res.data.count;
-          this.articles = res.data.articles;
+      let params = {
+        userId: this.userInfo.userId,
+        pageIndex: 1,
+        pageSize: 10
+      };
+      getPersonalBlog(params).then(res => {
+        if (res.result && +res.result.status === 200) {
+          this.articles = res.data.blogList;
         } else {
+          console.error('获取个人发表博文列表错误：' + res.result.message);
         }
       });
     },
     methods: {
       show (index) {
         this.currentIndex = index;
+        let params = {
+          userId: this.userInfo.userId,
+          pageIndex: 1,
+          pageSize: 10
+        };
+        switch (index) {
+        case 0: {
+          getPersonalBlog(params).then(res => {
+            if (res.result && +res.result.status === 200) {
+              this.articles = res.data.blogList;
+            } else {
+              console.error('获取个人发表博文列表错误：' + res.result.message);
+            }
+          });
+          break;
+        }
+        case 1: {
+          getPersonalWork(params).then(res => {
+            if (res.result && +res.result.status === 200) {
+              this.works = res.data.workList;
+            } else {
+              console.error('获取个人作品列表错误：' + res.result.message);
+            }
+          });
+          break;
+        }
+        case 2: {
+          getPersonalFavorited(params).then(res => {
+            if (res.result && +res.result.status === 200) {
+              this.favorited.articles = res.data.favouriteBlogList;
+              this.favorited.works = res.data.favouriteWorkList;
+            } else {
+              console.error('获取收藏列表错误：' + res.result.message);
+            }
+          });
+          break;
+        }
+        case 3: {
+          getPersonalLiked(params).then(res => {
+            if (res.result && +res.result.status === 200) {
+              this.liked.articles = res.data.likeBlogList;
+              this.liked.works = res.data.likeWorkList;
+            } else {
+              console.error('获取点赞列表错误：' + res.result.message);
+            }
+          });
+          break;
+        }
+        case 4: {
+          getPersonalDraft(params).then(res => {
+            if (res.result && +res.result.status === 200) {
+              this.drafts = res.data.draftList;
+            } else {
+              console.error('获取点赞列表错误：' + res.result.message);
+            }
+          });
+          break;
+        }
+        default:break;
+        }
       }
     }
   };
@@ -209,9 +312,6 @@
               }
             }
           }
-        }
-        .list{
-          width:100%;
         }
       }
     }

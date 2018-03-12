@@ -48,7 +48,7 @@ export default {
   },
   mounted () {
     let params = {
-      pageIndex: 0,
+      pageIndex: 1,
       pageSize: 10
     };
     getBlogList(params).then(res => {
@@ -56,7 +56,7 @@ export default {
         this.articles = res.data.blogList;
         return;
       }
-      console.error('获取文章列表错误：' + res.result.message);
+      console.error('获取文章列表错误：' + res.result);
     });
   }
 };

@@ -2,29 +2,29 @@
   <div class="comment-list">
     <section class="comment-box">
       <div class="author-info">
-        <div class="avatar" :style="'background-image: url(' + comment.userinfo.user_avatar + ');background-size:cover;'"></div>
-        <p>{{comment.userinfo.username}}</p>
+        <div class="avatar" :style="'background-image: url(' + comment.userInfo.avatar + ');background-size:cover;'"></div>
+        <p>{{comment.userInfo.userName}}</p>
         <p class="other-info">
-          {{comment.comment_time}}
+          {{comment.createTime}}
         </p>
       </div>
-      <p class="comment_content">{{comment.comment_content}}</p>
+      <p class="comment_content">{{comment.content}}</p>
       <p class="comment-action">
-        <span class="thumb_up"><i class="fa fa-thumbs-o-up"></i>{{comment.thumb_up_num}}</span>
-        <span class="comment" @click="replyToComment(comment.id, comment.userinfo.userid, comment.userinfo.username)" v-show="!isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>回复</span>
-        <span class="comment" @click="closeComment(comment.id, comment.userinfo.userid, comment.userinfo.username)" v-show="isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>收起回复</span>
+        <span class="thumb_up"><i class="fa fa-thumbs-o-up"></i>{{comment.commentLikeNum}}</span>
+        <span class="comment" @click="replyToComment(comment._id, comment.userInfo.userId, comment.userInfo.userName)" v-show="!isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>回复</span>
+        <span class="comment" @click="closeComment(comment._id, comment.userInfo.userId, comment.userInfo.userName)" v-show="isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>收起回复</span>
       </p>
       <div class="subcomment-box" v-show="isShowSubCommentTextarea">
         <textarea name="commenToComment" id="commenToComment" cols="80" rows="5" :placeholder="subCommentInfo" v-model="commentToCommentVal"></textarea>
-        <a href="#" class="btn-commit-reply" @click.prevent="commentToComment(comment.id)">提交</a>
+        <a href="#" class="btn-commit-reply" @click.prevent="commentToComment(comment._id)">提交</a>
       </div>
       <ul class="sub-comment">
-        <li v-for="reply in comment.reply" :key="reply.id">
-          <a href="/#/personal" class="reply-author">{{reply.reply_author_userinfo.username}}</a>
+        <li v-for="reply in comment.replyList" :key="reply._id">
+          <a href="/#/personal" class="reply-author">{{reply.replyUserInfo.userName}}</a>
           回复
-          <a href="/#/personal">{{reply.to_name_userinfo.username}}</a>
-          <span class="reply-content">：{{reply.reply_content}}</span>
-          <span class="comment-to-comment" @click.prevent="replyToComment(comment.id, reply.reply_author_userinfo.userid, reply.reply_author_userinfo.username)"><i class="fa fa-comment-o"></i>回复</span>
+          <a href="/#/personal">{{reply.repliedUserInfo.userName}}</a>
+          <span class="reply-content">：{{reply.replyContent}}</span>
+          <span class="comment-to-comment" @click.prevent="replyToComment(comment._id, reply.replyUserInfo.userId, reply.replyUserInfo.userName)"><i class="fa fa-comment-o"></i>回复</span>
         </li>
       </ul>
     </section>

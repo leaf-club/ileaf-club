@@ -32,11 +32,32 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/leaf-club-server': {
-      //   target: 'localhost:8081',
+      // 'user': {
+      //   target: 'localhost:3000',
       //   changeOrigin: true,
       //   pathRewrite:{
-      //     '^/leaf-club-server': '/leaf-club-server'
+      //     '^/user': '/user'
+      //   }
+      // },
+      // 'blog': {
+      //   target: 'localhost:3000',
+      //   changeOrigin: true,
+      //   pathRewrite:{
+      //     '^/blog': '/blog'
+      //   }
+      // },
+      // 'work': {
+      //   target: 'localhost:3000',
+      //   changeOrigin: true,
+      //   pathRewrite:{
+      //     '^/work': '/work'
+      //   }
+      // },
+      // 'common': {
+      //   target: 'localhost:3000',
+      //   changeOrigin: true,
+      //   pathRewrite:{
+      //     '^/common': '/common'
       //   }
       // }
     },

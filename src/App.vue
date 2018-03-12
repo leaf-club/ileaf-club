@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <head-top v-bind:isLogin='true'></head-top>
+    <head-top></head-top>
     <article>
       <router-view></router-view>
     </article>

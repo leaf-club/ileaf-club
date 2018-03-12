@@ -2,10 +2,6 @@
   <div class="article-list">
     <ul class="list" :class="{ full: showStyle === 'full' }">
       <li class="article" v-for="article in articles" :key="article._id">
-        <router-link
-          class="title"
-          :to="{ path: '/read/' + article._id }"
-        >{{ article.title }}</router-link>
         <ul class="desc">
           <li class="item author">
             <router-link
@@ -27,9 +23,13 @@
           <li class="item tag">
             <router-link to="#" class="item-tag">{{ article.tag }}</router-link>
           </li>
-          <li class="item time">{{ article.updateTime }}</li>
+          <li class="item time">{{ article.updateTime | timeFilter}}</li>
         </ul>
-        <p v-if="showStyle === 'full'" class="abstract">{{ article.abstract }}</p>
+        <router-link
+          class="title"
+          :to="{ path: '/read/' + article._id }"
+        >{{ article.title }}</router-link>
+        <p v-if="showStyle === 'full'" class="abstract" v-html="article.abstract"></p>
         <action
           v-if="showStyle === 'full'"
           :pid="article._id"

@@ -17,27 +17,27 @@ export default {
       article: {},
       articleTypes: [
         {
-          id: 1,
+          id: 0,
           name: '前端'
         },
         {
-          id: 2,
+          id: 1,
           name: '后台'
         },
         {
-          id: 3,
+          id: 2,
           name: 'Android'
         },
         {
-          id: 4,
+          id: 3,
           name: 'iOS'
         },
         {
-          id: 5,
+          id: 4,
           name: '设计'
         },
         {
-          id: 6,
+          id: 5,
           name: '其他'
         }
       ]

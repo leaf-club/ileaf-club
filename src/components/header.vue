@@ -15,7 +15,7 @@
       <ul id="options">
         <li v-if="isLogin" class="user-info">
           <span class="avatar">
-            <img src="../assets/images/github-avatar.jpeg" width="40" alt="用户头像">
+            <img :src="userInfo.avatar" width="40" alt="用户头像">
           </span>
           <ul class="drop-menu">
             <li class="item">
@@ -50,10 +50,10 @@
     <section :class="doLogin ? 'login-wrap' : 'login-wrap register-wrap'" v-if="doLogin || doRegister">
       <form class="login-box">
         <h2><span v-if="doLogin">登录</span><span v-if="doRegister">注册</span><span class="close"><i class="fa fa-close" @click="close"></i></span></h2>
-        <input type="text" name="name" placeholder="请填写用户名" v-if="doRegister">
-        <input type="text" name="phone" placeholder="请填写手机号或邮箱">
-        <input type="password" name="pwd" placeholder="请输入密码">
-        <button class="do-login"><span v-if="doLogin">登录</span><span v-if="doRegister">注册</span></button>
+        <input type="text" name="name" placeholder="请填写用户名" v-if="doRegister" v-model="userName">
+        <input type="text" name="phone" placeholder="请填写手机号或邮箱" v-model="contact">
+        <input type="password" name="pwd" placeholder="请输入密码" v-model="password">
+        <button class="do-login" @click.prevent="submit"><span v-if="doLogin">登录</span><span v-if="doRegister">注册</span></button>
         <p v-if="doLogin"><span>没有账号？</span><span class="register" @click="register">注册</span><span class="forgetPwd">忘记密码？</span></p>
         <p v-if="doRegister" class="registerToLogin" @click="login">已有账号登录</p>
         <p>第三方账号登录：</p>
@@ -73,25 +73,50 @@
   </div>
 </template>
 <script>
+  import { checkIsLogin, doRegister, doLogin } from '@/service/getData';
+  import { Storage } from '@/store/storage';
+  import { userInfoKey } from '@/store/storageConfig';
+
   export default {
     data () {
       return {
         // activeId: 0
+        isLogin: false,
         doLogin: false,
-        doRegister: false
+        doRegister: false,
+        userName: '', // 表单用户名字段
+        contact: '', // 表单联系方式字段
+        password: '', // 表单密码字段
+        userInfo: {},
+        storage: new Storage()
       };
     },
     props: {
-      isLogin: {
-        type: Boolean,
-        required: true
-      },
       activeId: {
         type: Number,
         default: 0
       }
     },
+    mounted () {
+      this.checkLogin();
+    },
     methods: {
+      checkLogin () {
+        checkIsLogin().then(res => {
+          if (res.result && +res.result.status === 200) {
+            this.isLogin = true;
+            this.userInfo = {
+              userId: res.data.userInfo.userId,
+              userName: res.data.userInfo.userName,
+              avatar: res.data.userInfo.avatar,
+              contact: res.data.userInfo.contact
+            };
+            this.storage.setItem(userInfoKey, this.userInfo);
+          } else {
+            this.isLogin = false;
+          }
+        });
+      },
       register () {
         this.doLogin = false;
         this.doRegister = true;
@@ -103,6 +128,45 @@
       close () {
         this.doLogin = false;
         this.doRegister = false;
+      },
+      submit () {
+        if (this.doLogin === false && this.doRegister === true) {
+          let params = {
+            userName: this.userName,
+            contact: this.contact,
+            password: this.password
+          };
+          doRegister(params).then(res => {
+            if (res.result && +res.result.status === 200) {
+              this.doLogin = true;
+              this.doRegister = false;
+            }
+          });
+          return;
+        }
+        if (this.doLogin === true && this.doRegister === false) {
+          let params = {
+            contact: this.contact,
+            password: this.password
+          };
+          doLogin(params).then(res => {
+            if (res.result && +res.result.status === 200) {
+              this.doLogin = false;
+              this.doRegister = false;
+              this.isLogin = true;
+              this.userInfo = {
+                userId: res.data.userInfo.userId,
+                userName: res.data.userInfo.userName,
+                avatar: res.data.userInfo.avatar,
+                contact: res.data.userInfo.contact
+              };
+              this.storage.setItem(userInfoKey, this.userInfo);
+              // this.$router.go(0);
+            } else {
+              alert(res.result.message);
+            }
+          });
+        }
       }
     }
   };
