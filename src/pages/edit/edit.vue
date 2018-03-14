@@ -7,33 +7,37 @@
 <script>
 import editor from '@/components/editor';
 import { saveArticle } from '@/service/getData';
+import { Storage } from '@/store/storage';
+import { userInfoKey } from '@/store/storageConfig';
+
 export default {
   data () {
     return {
+      userInfo: {},
       article: {},
       articleTypes: [
         {
-          id: 1,
+          id: 0,
           name: '前端'
         },
         {
-          id: 2,
+          id: 1,
           name: '后台'
         },
         {
-          id: 3,
+          id: 2,
           name: 'Android'
         },
         {
-          id: 4,
+          id: 3,
           name: 'iOS'
         },
         {
-          id: 5,
+          id: 4,
           name: '设计'
         },
         {
-          id: 6,
+          id: 5,
           name: '其他'
         }
       ]
@@ -43,6 +47,8 @@ export default {
     editor
   },
   created () {
+    let storage = new Storage();
+    this.userInfo = storage.getItem(userInfoKey);
     let id = this.$route.query.id;
     if (id) {
       this.article = {
@@ -63,17 +69,27 @@ export default {
   },
   methods: {
     async saveDraft (draft) {
-      draft.userId = 1;
+      draft.userId = this.userInfo.userId;
       // let res = await getTestUser(1);
       console.log(Object.entries(draft));
       let res = await saveArticle(draft);
-      console.log(res);
+      if (res.result && +res.result.status === 200) {
+        console.log('草稿保存成功！');
+        return;
+      }
+      console.error('保存草稿失败：' + res.result.message);
     },
     async publish (article) {
-      article.userId = 1;
+      article.userId = this.userInfo.userId;
       console.log(Object.entries(article));
       let res = await saveArticle(article);
-      console.log(res);
+      if (res.result && +res.result.status === 200) {
+        this.$router.push({
+          path: 'personal?id=' + this.userInfo.userId
+        });
+        return;
+      }
+      console.error('发布文章错误：' + res.result.message);
     }
   }
 };

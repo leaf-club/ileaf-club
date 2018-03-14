@@ -50,7 +50,11 @@
     props: {
       pid: {
         type: [Number, String],
-        default: -1
+        required: true
+      },
+      type: {
+        type: [Number],
+        required: true
       },
       initData: Object
     },
@@ -68,22 +72,24 @@
         if (this.liked) {
           let res = await like({
             id: this.pid,
+            type: this.type,
             userId: userInfo.userId,
             operate: 0
           });
-          if (res.result && res.result.code === 200) {
+          if (res.result && +res.result.status === 200) {
             this.liked = false;
-            this.likeCount = res.data.like === 0 ? '点赞' : res.data.like;
+            this.likeCount = res.data.likeNum === 0 ? '点赞' : res.data.likeNum;
           }
         } else {
           let res = await like({
             id: this.pid,
+            type: this.type,
             userId: userInfo.userId,
             operate: 1
           });
-          if (res.result && res.result.code === 200) {
+          if (res.result && +res.result.status === 200) {
             this.liked = true;
-            this.likeCount = res.data.like === 0 ? '点赞' : res.data.like;
+            this.likeCount = res.data.likeNum === 0 ? '点赞' : res.data.likeNum;
           }
         }
       },
@@ -97,22 +103,24 @@
         if (this.favorited) {
           let res = await favorite({
             id: this.pid,
+            type: this.type,
             userId: userInfo.userId,
             operate: 0
           });
-          if (res.result && res.result.code === 200) {
+          if (res.result && +res.result.status === 200) {
             this.favorited = false;
-            this.favoriteCount = res.data.favorite === 0 ? '收藏' : res.data.favorite;
+            this.favoriteCount = res.data.favoriteNum === 0 ? '收藏' : res.data.favoriteNum;
           }
         } else {
           let res = await favorite({
             id: this.pid,
+            type: this.type,
             userId: userInfo.userId,
             operate: 1
           });
-          if (res.result && res.result.code === 200) {
+          if (res.result && +res.result.status === 200) {
             this.favorited = true;
-            this.favoriteCount = res.data.favorite === 0 ? '收藏' : res.data.favorite;
+            this.favoriteCount = res.data.favoriteNum === 0 ? '收藏' : res.data.favoriteNum;
           }
         }
       }

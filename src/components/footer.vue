@@ -17,13 +17,13 @@
         <router-link to="/home" class="linkHome">涨知识，上leaf-club</router-link>
       </div>
     </div>
-    <div class="ft">
+    <div :class="showAd ? 'ft' : 'ft ft-half'">
       <nav class="ft_nav">
         <router-link to="/about" class="nav-item">关于leaf-club</router-link>
         <router-link to="/about" class="nav-item">联系方式</router-link>
         <router-link to="/about" class="nav-item">加入我们</router-link>
       </nav>
-      <p class="copyright">© 2017 Leaf-Club. All rights reserved.</p>
+      <p class="copyright">© 2018 Leaf-Club. All rights reserved.</p>
       <p class="info">鄂ICP备0652314号</p>
     </div>
   </footer>
@@ -34,7 +34,10 @@
       return {
         blogroll: [
           {name: '掘金网', link: 'https://juejin.im/', id: 1},
-          {name: '百度', link: 'https://www.baidu.com/', id: 2}
+          {name: '百度', link: 'https://www.baidu.com/', id: 2},
+          {name: '知乎', link: 'https://www.baidu.com/', id: 3},
+          {name: '极客', link: 'https://www.baidu.com/', id: 4},
+          {name: '新浪', link: 'https://www.baidu.com/', id: 5}
         ]
       };
     },
@@ -74,9 +77,16 @@
       }
 
       a{
+        display: inline-block;
+        font-size: .8em;
         text-decoration: none;
-        padding: 0.02rem 0.05rem;
+        padding: 0rem 0.05rem;
+        margin-bottom: 0.05rem;
         color: #43aabb;
+        border-right: 1px solid #43aabb;
+      }
+      a:last-child{
+        border-right: none;
       }
     }
 
@@ -109,30 +119,42 @@
       }
 
       .linkHome{
+        font-size: 0.8em;
+        line-height: 1.5;
         text-decoration: none;
         color: #43aabb;
       }
     }
   }
-  footer .ft{
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    font-size: 0.12rem;
-    background-color: #eee;
-    padding: 0.08rem 0;
-
-    .nav-item{
-      text-decoration: none;
-      color: #333;
-      padding: 0 0.05rem;
+  footer {
+    .ft {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      font-size: 0.12rem;
+      background-color: #434343;
+      border-top: 1px solid rgba(255,255,255,.2);
+      padding: 0.08rem 0;
+      .nav-item{
+        text-decoration: none;
+        color: #eee;
+        padding: 0 0.05rem;
+        line-height: 1.5;
+      }
+      
+      p{
+        margin: 0.05rem 0 0;
+        color: #000;
+        line-height: 1.5;
+      }
     }
-    
-    p{
-      margin: 0.03rem 0 0;
-      color: #000;
+    .ft-half {
+      background-color: transparent;
+      .nav-item {
+        color: #333;
+      }
     }
   }
 </style>

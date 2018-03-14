@@ -1,15 +1,24 @@
 <template>
   <div class="home">
-    <hgroup>
-      <h2 class="home-title">首页</h2>
-      <h3 class="hot-article">热门文章推荐</h3>
-    </hgroup>
-    <article-list
-      :articles="articles"
-      :show-style="'cut'"
-    ></article-list>
-    <h3>热门作品推荐</h3>
-    <work-list :work-list="works"></work-list>
+    <section class="content">
+      <main>
+        <h2 class="home-title">首页</h2>
+        <section>
+          <h3 class="hot-article">热门文章推荐</h3>
+          <article-list
+            :articles="articles"
+            :show-style="'cut'"
+          ></article-list>
+        </section>
+        <section>
+          <h3>热门作品推荐</h3>
+          <work-list :work-list="works"></work-list>
+        </section>
+      </main>
+      <aside>
+        <adsense :adList="adList"></adsense>
+      </aside>
+    </section>
     <foot :showAd="true"></foot>
   </div>
 </template>
@@ -20,121 +29,24 @@ import workList from '@/components/workList';
 import foot from '@/components/footer';
 import { Storage } from '@/store/storage';
 import { userInfoKey } from '@/store/storageConfig';
+import adsense from '@/components/adsense';
+import { getRecommendBlogList, getRecommendWorkList } from '@/service/getData';
 
 export default {
   data () {
     return {
-      articles: [
+      articles: [],
+      works: [],
+      adList: [
         {
-          id: 101,
-          author: {
-            id: 1,
-            avatar: 'http://opzww7anw.bkt.clouddn.com/personal/avatar/github-avatar.jpeg',
-            nickname: 'Yann'
-          },
-          type: {
-            id: 1,
-            name: '前端'
-          },
-          tag: 'JavaScript',
-          title: 'JavaScript 高级编程学习笔记（一）',
-          publishTime: '2017-11-06 19:15'
+          name: '腾讯云',
+          imageUrl: 'https://user-gold-cdn.xitu.io/15198101796035def81fb3ff58f95ec40ab6cb5828348.jpg?imageView2/1/q/85/format/webp/interlace/1',
+          target: 'https://cloud.tencent.com/solution/la?fromSource=gwzcw.781155.781155.781155'
         },
         {
-          id: 102,
-          author: {
-            id: 1,
-            avatar: 'http://opzww7anw.bkt.clouddn.com/personal/avatar/github-avatar.jpeg',
-            nickname: 'Yann'
-          },
-          type: {
-            id: 1,
-            name: '前端'
-          },
-          tag: 'JavaScript',
-          title: 'JavaScript 高级编程学习笔记（二）',
-          publishTime: '2017-11-06 19:25'
-        },
-        {
-          id: 103,
-          author: {
-            id: 1,
-            avatar: 'http://opzww7anw.bkt.clouddn.com/personal/avatar/github-avatar.jpeg',
-            nickname: 'Yann'
-          },
-          type: {
-            id: 1,
-            name: '前端'
-          },
-          tag: 'JavaScript',
-          title: 'JavaScript 高级编程学习笔记（三）',
-          publishTime: '2017-11-06 19:35'
-        }
-      ],
-      works: [
-        {
-          author: {
-            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg',
-            id: 1,
-            nickname: 'lemongirl'
-          },
-          cover: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg',
-          title: '你画我猜',
-          like: 34,
-          favorite: 23,
-          comment: 237,
-          read: 66,
-          id: 1,
-          publishTime: '2017-10-18',
-          workLink: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg'
-        },
-        {
-          author: {
-            avatar: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg',
-            id: 2,
-            nickname: 'liuliu'
-          },
-          cover: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg',
-          title: '几年级？',
-          like: 34,
-          favorite: 23,
-          comment: 237,
-          read: 66,
-          id: 2,
-          publishTime: '2017-10-23',
-          workLink: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg'
-        },
-        {
-          author: {
-            avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg',
-            id: 3,
-            nickname: 'HYL'
-          },
-          cover: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg',
-          title: '心灵感应',
-          like: 34,
-          favorite: 23,
-          comment: 237,
-          read: 66,
-          id: 3,
-          publishTime: '2016-8-3',
-          workLink: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509722975432&di=4dba9ed8b5ef9e40213ac36f2af37275&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D8d3d4b02b4096b6395145613645aed31%2Ff7246b600c3387446c83a3515b0fd9f9d72aa05d.jpg'
-        },
-        {
-          author: {
-            avatar: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg',
-            id: 4,
-            nickname: 'YXY'
-          },
-          cover: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg',
-          title: '小鱼吃大鱼',
-          like: 34,
-          favorite: 23,
-          comment: 237,
-          read: 66,
-          id: 4,
-          publishTime: '2017-1-28',
-          workLink: 'https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign=d8088fcbf2dcd100d29cff23428947be/0b55b319ebc4b745a06692d0c5fc1e178b821501.jpg'
+          name: 'leaf',
+          imageUrl: 'https://user-gold-cdn.xitu.io/15198101796035def81fb3ff58f95ec40ab6cb5828348.jpg?imageView2/1/q/85/format/webp/interlace/1',
+          target: 'https://cloud.tencent.com/solution/la?fromSource=gwzcw.781155.781155.781155'
         }
       ]
     };
@@ -142,14 +54,37 @@ export default {
   components: {
     articleList,
     workList,
-    foot
+    foot,
+    adsense
   },
   mounted () {
-    // 模拟登录，写入用户信息到本地
     let storage = new Storage();
-    storage.setItem(userInfoKey, {
-      userId: 1,
-      nickName: 'Yann'
+    let userInfo = storage.getItem(userInfoKey);
+    console.log(userInfo);
+    let params = {
+      userId: userInfo ? userInfo.userId : '',
+      count: 5
+    };
+    // let res = await getRecommendBlogList(params);
+    // if (res.result && +res.result.status === 200) {
+    //   this.works = res.data.blogList;
+    // } else {
+    //   console.error('获取推荐文章列表错误：' + res.result.message);
+    // }
+
+    getRecommendBlogList(params).then((res) => {
+      if (res.result && +res.result.status === 200) {
+        this.articles = res.data.blogList;
+        return;
+      }
+      console.error('获取推荐文章列表错误：' + res.result.message);
+    });
+    getRecommendWorkList(params).then((res) => {
+      if (res.result && +res.result.status === 200) {
+        this.works = res.data.workList;
+        return;
+      }
+      console.error('获取推荐作品列表错误：' + res.result.message);
     });
   },
   methods: {
@@ -158,6 +93,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .home {
+   .content {
+    overflow-x: hidden;
+    margin-top: 0.2rem;
+    padding: 0.05rem .5rem;
+    position: relative;
+    h2 {
+      font-size: 0.14rem;
+      color: #666;
+    }
+    main {
+      margin-right: 2.6rem;
+      position: relative;
+    }
+    aside {
+      position: absolute;
+      top: 0.44rem;
+      right: 0.5rem;
+    }
+    section {
+      background-color: white;
+      padding: 0.3rem 0;
+      margin-bottom: 0.3rem;
+      h3 {
+        margin: 0 0.3rem;
+        padding-bottom: 0.1rem;
+        font-size: 1em;
+        font-weight: normal;
+        color: #4eb2a3;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+      }
+    }
+  } 
+  }
+  
 </style>
 

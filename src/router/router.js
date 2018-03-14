@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
 
 const home = r => require.ensure([], () => r(require('../pages/home/home')), 'home');
 const article = r => require.ensure([], () => r(require('../pages/article/article')), 'article');
@@ -17,8 +16,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: HelloWorld
+      name: 'home',
+      component: home
     },
     {
       path: '/home',
