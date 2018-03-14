@@ -3,7 +3,7 @@
     <div class="content">
       <h2>博文</h2>
       <main>
-        <section class="article-box">
+        <section class="article-box" v-if="articleData._id">
           <div class="author-info">
             <!-- articleData初始值为空会报错 -->
             <div class="avatar" :style="'background-image: url(' + articleData.userInfo.avatar + ');background-size:cover;'"></div>
@@ -22,11 +22,11 @@
           <div class="article-content" v-html="articleData.htmlCode">
           </div>
           <action
-            :pid="articleData._id"
+            :pid="articleData._id ? articleData._id : -1"
             :type="0"
             :init-data="{
-              liked: false,
-              favorited: false,
+              liked: articleData.liked,
+              favorited: articleData.favorited,
               commented: false,
               likeCount: articleData.likeNum === 0 ? '点赞' : articleData.likeNum,
               favoriteCount: articleData.favoriteNum === 0 ? '收藏' : articleData.favoriteNum,
@@ -44,7 +44,12 @@
           <a href="#" class="btn-comment" @click.prevent="commentToArticle">评论</a>
         </section>
         <section id="comment">
-          <comment v-for="comment in commentData" :key="comment.id" :comment="comment"></comment>
+          <comment 
+            v-for="comment in commentData" 
+            :key="comment._id" 
+            :comment="comment" 
+            @likeNumChange="num => comment.likeNum = num"
+          ></comment>
         </section>
       </main>
     </div>
@@ -65,21 +70,7 @@
       return {
         // activeId: 0
         userInfo: {},
-        articleData: {
-          // id: 101,
-          // userInfo: {
-          //   user_avatar: '../../static/img/liuchunliu.jpeg',
-          //   username: '怀左同学',
-          //   userid: '1234'
-          // },
-          // pub_time: '2017-10-15 15:32',
-          // read_num: 2693,
-          // like_num: 25,
-          // favorite_num: 36,
-          // comment_num: 37,
-          // title: '我想说的话',
-          // content: '<p>01<br> 刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方，她温柔可爱美丽大方，对人友好，大家都对她竖起大拇哥。</p> <p>02<br> 突然有点咳嗽，感觉喉咙进了一个小飞絮，喝口水就好了，但是杯子是新的杯子，我觉得得再洗洗才能喝啊，那我就起身啊，可是又在辛勤工作，咋办，不想打乱工作节奏，还是多咳嗽几下吧，受不了了再去打一下热水喝，但是现在去打水的话，等这段话打完了就可以马上喝了，如果之后再打水，就要等一会儿才能喝，怎么办，真纠结啊，还是打完吧，也就这几个字了，我打字还是挺快的，这么点时间也不够水凉下来的吧～😄</p><p>01<br> 刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方，她温柔可爱美丽大方，对人友好，大家都对她竖起大拇哥。</p> <p>02<br> 突然有点咳嗽，感觉喉咙进了一个小飞絮，喝口水就好了，但是杯子是新的杯子，我觉得得再洗洗才能喝啊，那我就起身啊，可是又在辛勤工作，咋办，不想打乱工作节奏，还是多咳嗽几下吧，受不了了再去打一下热水喝，但是现在去打水的话，等这段话打完了就可以马上喝了，如果之后再打水，就要等一会儿才能喝，怎么办，真纠结啊，还是打完吧，也就这几个字了，我打字还是挺快的，这么点时间也不够水凉下来的吧～😄</p><p>01<br> 刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方，她温柔可爱美丽大方，对人友好，大家都对她竖起大拇哥。</p> <p>02<br> 突然有点咳嗽，感觉喉咙进了一个小飞絮，喝口水就好了，但是杯子是新的杯子，我觉得得再洗洗才能喝啊，那我就起身啊，可是又在辛勤工作，咋办，不想打乱工作节奏，还是多咳嗽几下吧，受不了了再去打一下热水喝，但是现在去打水的话，等这段话打完了就可以马上喝了，如果之后再打水，就要等一会儿才能喝，怎么办，真纠结啊，还是打完吧，也就这几个字了，我打字还是挺快的，这么点时间也不够水凉下来的吧～😄</p>'
-        },
+        articleData: {},
         commentData: [],
         isShowCommentBox: false,
         commentToArticleVal: ''
@@ -154,6 +145,7 @@
         if (this.commentToArticleVal) {
           addBlogComment(params).then(res => {
             if (res.result && +res.result.status === 200) {
+              this.$router.go(0);
               this.$router.push({
                 path: '/read/' + params.blogId + '#comment'
               });

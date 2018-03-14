@@ -1,5 +1,5 @@
 <template>
-  <div class="work-list">
+  <div class="work-list" @initDataChange="initDataChange">
     <div v-for="work in workList" :key="work._id" class="work-box">
       <a target="_blank" :href="work.url">
         <img :src="work.cover" alt="" class="work-cover" />
@@ -45,6 +45,9 @@ export default {
   },
   props: ['workList'],
   methods: {
+    initDataChange (data) {
+      this.workList = data;
+    }
   }
 };
 </script>

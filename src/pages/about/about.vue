@@ -51,7 +51,7 @@ export default {
     return {
       leaferList: [
         {id: 1, name: '刘春柳', area: '前端开发', avatar: '../../static/img/liuchunliu.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
-        {id: 2, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
+        {id: 2, name: '李蒙昭', area: '前端开发', avatar: '../../static/img/limengzhao.jpg', detail: '李蒙昭是一个聪明可爱机智善良勇敢无畏天生丽质霸气侧漏邪魅狂拽智商超群极具魅力温文尔雅风度翩翩彬彬有礼天下无双眉清目秀吹弹可破人面桃花英俊潇洒气宇不凡玉树临风仪表堂堂风流倜傥面如冠玉风度翩翩美目盼兮清新俊逸酷到爆的程序员'},
         {id: 3, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
         {id: 4, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},
         {id: 5, name: '刘春柳', area: '前端开发', avatar: '../../static/img/github-avatar.jpeg', detail: '刘春柳是一个集才华与美貌于一身的美丽师姐，大家都非常尊重热爱她，她博学多识，切实而且勤劳，更重要的是还心怀诗和远方'},

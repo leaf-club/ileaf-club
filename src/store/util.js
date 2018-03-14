@@ -8,13 +8,23 @@ export function once (fn) {
   };
 };
 
+/**
+ * 设置本地Cookies
+ * @param {String} key
+ * @param {String} value
+ * @param {Number} expire
+ */
 export function setCookie ({ key, value, expire }) {
   let expiredays = expire || 1;
   let exdate = new Date();
   exdate.setDate(exdate.getDate() + expiredays);
   document.cookie = key + '=' + escape(value) + ((expiredays === null) ? '' : ';expires=' + exdate.toGMTString());
 };
-
+/**
+ * 获取本地Cookie
+ * @param {String} key
+ * @return {String} Cookie值
+ */
 export function getCookie (key) {
   if (document.cookie.length > 0) {
     let cStart = document.cookie.indexOf(key + '=');

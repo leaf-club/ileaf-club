@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list">
+  <div class="article-list" @initDataChange="initDataChange">
     <ul class="list" :class="{ full: showStyle === 'full' }">
       <li class="article" v-for="article in articles" :key="article._id">
         <ul class="desc">
@@ -13,7 +13,8 @@
               v-if="showStyle === 'full'"
               class="item-author"
               :to="{ path: '/personal', query: { id: article.userInfo._id } }">
-              <img class="avatar" :src="article.userInfo.avatar" alt="avatar">
+              <a class="avatar" href="#" :style="'background-image: url(' + article.userInfo.avatar + ');'"></a>
+              <!-- <img class="avatar" :src="article.userInfo.avatar" alt="avatar"> -->
               <span class="nickname">{{ article.userInfo.userName }}</span>
             </router-link>
           </li>
@@ -35,8 +36,8 @@
           :pid="article._id"
           :type="0"
           :init-data="{
-            liked: false,
-            favorited: false,
+            liked: article.liked,
+            favorited: article.favorited,
             commented: false,
             likeCount: article.likeNum === 0 ? '点赞' : article.likeNum,
             favoriteCount: article.favoriteNum === 0 ? '收藏' : article.favoriteNum,
@@ -75,6 +76,9 @@ export default {
     }
   },
   methods: {
+    initDataChange (data) {
+      this.articles = data;
+    }
   }
 };
 </script>
@@ -163,9 +167,11 @@ $actionBtnColor: #777;
               display: inline-block;
               vertical-align: middle;
               .avatar {
+                display: inline-block;
                 width: 0.4rem;
                 height: 0.4rem;
                 border-radius: 0.2rem;
+                background-size: cover;
               }
               .nickname {
                 display: inline-block;

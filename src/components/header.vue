@@ -14,12 +14,12 @@
       </nav>
       <ul id="options">
         <li v-if="isLogin" class="user-info">
-          <span class="avatar">
-            <img :src="userInfo.avatar" width="40" alt="用户头像">
-          </span>
+          <a href="javascript:void(0)" class="avatar" :style="'background-image: url('+userInfo.avatar+');'">
+            <!-- <img :src="userInfo.avatar" width="40" alt="用户头像"> -->
+          </a>
           <ul class="drop-menu">
             <li class="item">
-              <router-link to="/personal" class="link">我的主页</router-link>
+              <router-link :to="'/personal?id='+userInfo.userId" class="link">我的主页</router-link>
             </li>
             <li class="item">
               <router-link to="/personal" class="link">我的收藏</router-link>
@@ -34,7 +34,8 @@
               <router-link to="/home" class="link">设置</router-link>
             </li>
             <li class="item">
-              <router-link to="/home" class="link">退出</router-link>
+              <a href="javascript:void(0)" class="link" @click="logout">退出</a>
+              <!-- <router-link to="/home" class="link">退出</router-link> -->
             </li>
           </ul>
         </li>
@@ -73,7 +74,7 @@
   </div>
 </template>
 <script>
-  import { checkIsLogin, doRegister, doLogin } from '@/service/getData';
+  import { checkIsLogin, doRegister, doLogin, doLogout } from '@/service/getData';
   import { Storage } from '@/store/storage';
   import { userInfoKey } from '@/store/storageConfig';
 
@@ -105,12 +106,7 @@
         checkIsLogin().then(res => {
           if (res.result && +res.result.status === 200) {
             this.isLogin = true;
-            this.userInfo = {
-              userId: res.data.userInfo.userId,
-              userName: res.data.userInfo.userName,
-              avatar: res.data.userInfo.avatar,
-              contact: res.data.userInfo.contact
-            };
+            this.userInfo = res.data.userInfo;
             this.storage.setItem(userInfoKey, this.userInfo);
           } else {
             this.isLogin = false;
@@ -128,6 +124,15 @@
       close () {
         this.doLogin = false;
         this.doRegister = false;
+      },
+      logout () {
+        doLogout().then(res => {
+          if (res.result && +res.result.status === 200) {
+            this.storage.removeItem(userInfoKey);
+            this.isLogin = false;
+            this.userInfo = {};
+          }
+        });
       },
       submit () {
         if (this.doLogin === false && this.doRegister === true) {
@@ -279,10 +284,8 @@
           width: 0.40rem;
           height: 0.40rem;
           display: inline-block;
-          cursor: pointer;
-          img {
-            border-radius: 50%;
-          }
+          border-radius: .2rem;
+          background-size:cover;
         }
         ul {
           display: none;

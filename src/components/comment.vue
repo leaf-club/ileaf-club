@@ -5,45 +5,64 @@
         <div class="avatar" :style="'background-image: url(' + comment.userInfo.avatar + ');background-size:cover;'"></div>
         <p>{{comment.userInfo.userName}}</p>
         <p class="other-info">
-          {{comment.createTime}}
+          {{comment.createTime | timeFilter}}
         </p>
       </div>
       <p class="comment_content">{{comment.content}}</p>
       <p class="comment-action">
-        <span class="thumb_up"><i class="fa fa-thumbs-o-up"></i>{{comment.commentLikeNum}}</span>
-        <span class="comment" @click="replyToComment(comment._id, comment.userInfo.userId, comment.userInfo.userName)" v-show="!isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>回复</span>
-        <span class="comment" @click="closeComment(comment._id, comment.userInfo.userId, comment.userInfo.userName)" v-show="isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>收起回复</span>
+        <span class="thumb_up" @click="likeComment(comment._id)"><i class="fa fa-thumbs-o-up"></i>{{comment.likeNum ? comment.likeNum : '点赞'}}</span>
+        <span class="comment" @click="replyToComment(comment._id, comment.userInfo._id, comment.userInfo.userName)" v-show="!isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>回复</span>
+        <span class="comment" @click="closeComment" v-show="isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>收起回复</span>
       </p>
       <div class="subcomment-box" v-show="isShowSubCommentTextarea">
         <textarea name="commenToComment" id="commenToComment" cols="80" rows="5" :placeholder="subCommentInfo" v-model="commentToCommentVal"></textarea>
-        <a href="#" class="btn-commit-reply" @click.prevent="commentToComment(comment._id)">提交</a>
+        <a href="#" class="btn-commit-reply" @click.prevent="submitReply(comment._id)">提交</a>
       </div>
       <ul class="sub-comment">
         <li v-for="reply in comment.replyList" :key="reply._id">
           <a href="/#/personal" class="reply-author">{{reply.replyUserInfo.userName}}</a>
           回复
-          <a href="/#/personal">{{reply.repliedUserInfo.userName}}</a>
+          <a href="/#/personal">{{reply.repliedUserInfo ? reply.repliedUserInfo.userName : ''}}</a>
           <span class="reply-content">：{{reply.replyContent}}</span>
-          <span class="comment-to-comment" @click.prevent="replyToComment(comment._id, reply.replyUserInfo.userId, reply.replyUserInfo.userName)"><i class="fa fa-comment-o"></i>回复</span>
+          <span class="comment-to-comment" @click.prevent="replyToComment(comment._id, reply.replyUserInfo._id, reply.replyUserInfo.userName)"><i class="fa fa-comment-o"></i>回复</span>
+          <span class="reply-time">{{reply.createTime | timeFilter}}</span>
         </li>
       </ul>
     </section>
   </div>
 </template>
 <script>
+  import { addBlogComment, likeComment } from '@/service/getData';
+  import { Storage } from '@/store/storage';
+  import { userInfoKey } from '@/store/storageConfig';
+
   export default {
     data () {
       return {
         isShowSubCommentTextarea: false,
         subCommentInfo: '你的月亮我的心，说出你的心声',
-        commentToCommentVal: ''
+        commentToCommentVal: '',
+        repliedUserId: '',
+        userInfo: {}
       };
     },
     props: ['comment'],
+    created () {
+      let storage = new Storage();
+      this.userInfo = storage.getItem(userInfoKey);
+    },
     methods: {
+      likeComment (commentId) {
+        likeComment({commentId: commentId}).then(res => {
+          if (res.result && +res.result.status === 200) {
+            this.$emit('likeNumChange', res.data.likeNum);
+          }
+        });
+      },
       replyToComment (commentId, userId, username) {
         if (!this.commentToCommentVal) {
           this.isShowSubCommentTextarea = true;
+          this.repliedUserId = userId;
           this.subCommentInfo = '回复' + username + '：';
           return;
         }
@@ -62,8 +81,20 @@
           this.commentToCommentVal = '';
         }
       },
-      commentToComment (id) {
-        console.log(this.commentToCommentVal);
+      submitReply (id) {
+        let params = {
+          userId: this.userInfo.userId,
+          blogId: this.$route.params.id,
+          commentId: id,
+          repliedUserId: this.repliedUserId,
+          content: this.commentToCommentVal,
+          status: 2
+        };
+        addBlogComment(params).then(res => {
+          if (res.result && +res.result.status === 200) {
+            this.$router.go(0);
+          }
+        });
         this.isShowSubCommentTextarea = false;
         this.commentToCommentVal = '';
       }
@@ -140,9 +171,14 @@
           color: #4eb2a3;
           padding: 0 .05rem;
         }
+        .reply-time {
+          color: #777;
+          font-size: .12rem;
+          margin: 0 .1rem;
+        }
         .comment-to-comment {
           cursor: pointer;
-          color: #777;
+          color: #4eb2a3;
           i {
             margin-right: .03rem;
           }

@@ -60,8 +60,9 @@ export default {
   mounted () {
     let storage = new Storage();
     let userInfo = storage.getItem(userInfoKey);
+    console.log(userInfo);
     let params = {
-      userId: userInfo.userId,
+      userId: userInfo ? userInfo.userId : '',
       count: 5
     };
     // let res = await getRecommendBlogList(params);

@@ -5,22 +5,32 @@
       <main>
         <div class="head">
           <div class="head-info">
-            <img class="info-pic" :src="headPic" alt="avatar">
-            <p class="info-name">{{userName}}</p>
-            <ul>
-              <li>
-                <i>{{totalBlog}}</i>
-                <span>文章</span>
-              </li>
-              <li>
-                <i>{{totalWork}}</i>
-                <span>作品</span>
-              </li>
-              <li>
-                <i>{{totalCollection}}</i>
-                <span>收藏</span>
-              </li>
-            </ul>
+            <img class="info-pic" :src="userInfo.avatar" alt="avatar">
+            <div class="info-detail">
+              <p class="info-name">{{userInfo.userName}}</p>
+              <ul>
+                <li>
+                  <i>{{totalCounts.blogCount ? totalCounts.blogCount : 0}}</i>
+                  <span>文章</span>
+                </li>
+                <li>
+                  <i>{{totalCounts.workCount ? totalCounts.workCount : 0}}</i>
+                  <span>作品</span>
+                </li>
+                <li>
+                  <i>{{totalCounts.likeCount ? totalCounts.likeCount : 0}}</i>
+                  <span>赞过</span>
+                </li>
+                <li>
+                  <i>{{totalCounts.favoriteCount ? totalCounts.favoriteCount : 0}}</i>
+                  <span>收藏</span>
+                </li>
+                <li>
+                  <i>{{totalCounts.draftCount ? totalCounts.draftCount : 0}}</i>
+                  <span>草稿</span>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="head-ul">
             <ul>
@@ -32,38 +42,51 @@
             </ul>
           </div>
         </div>
-        <div class="list">
+        <div class="list" v-if="currentIndex === 0">
           <article-list
             :articles="articles"
             :show-style="'full'"
-            v-show="currentIndex === 0"
           ></article-list>
+        </div>
+
+        <div class="list" v-if="currentIndex === 1">
           <work-list
             :work-list="works"
-            v-show="currentIndex === 1"
           ></work-list>
-          <div v-show="currentIndex === 2">
-            <h2>文章</h2>
-            <article-list
-              :articles="favorited.articles"
-              :show-style="'full'"
-            ></article-list>
-            <h2>作品</h2>
-            <work-list
-              :work-list="favorited.works"
-            ></work-list>
-          </div>
-          <div v-show="currentIndex === 3">
-            <h2>文章</h2>
-            <article-list
-              :articles="liked.articles"
-              :show-style="'full'"
-            ></article-list>
-            <h2>作品</h2>
-            <work-list
-              :work-list="liked.works"
-            ></work-list>
-          </div>
+        </div>
+
+        <div class="list" v-if="currentIndex === 2">
+          <h2>文章</h2>
+          <article-list
+            :articles="liked.articles"
+            :show-style="'full'"
+            ref="articlelist"
+          ></article-list>
+          <h2>作品</h2>
+          <work-list
+            :work-list="liked.works"
+            ref="worklist"
+          ></work-list>
+        </div>
+
+        <div class="list" v-if="currentIndex === 3">
+          <h2>文章</h2>
+          <article-list
+            :show-style="'full'"
+            ref="articlelist"
+          ></article-list>
+          <h2>作品</h2>
+          <work-list
+            :work-list="favorited.works"
+            ref="worklist"
+          ></work-list>
+        </div>
+
+        <div class="list" v-if="currentIndex === 4">
+          <article-list
+            :articles="drafts"
+            :show-style="'cut'"
+          ></article-list>
         </div>
       </main>
     </div>
@@ -71,7 +94,7 @@
   </div>
 </template>
 <script>
-  import { getUserInfo, getPersonalBlog, getPersonalWork, getPersonalFavorited, getPersonalLiked, getPersonalDraft } from '@/service/getData';
+  import { getUserInfo, getCounts, getPersonalBlog, getPersonalWork, getPersonalFavorited, getPersonalLiked, getPersonalDraft } from '@/service/getData';
   import foot from '@/components/footer';
   import articleList from '@/components/articleList';
   import workList from '@/components/workList';
@@ -84,8 +107,8 @@
         liList: [
           {url: 'file-text-o', type: '文章'},
           {url: 'diamond', type: '作品'},
-          {url: 'heart-o', type: '收藏'},
           {url: 'thumbs-o-up', type: '赞过'},
+          {url: 'heart-o', type: '收藏'},
           {url: 'sticky-note-o', type: '草稿'}
         ],
         userInfo: {},
@@ -94,11 +117,7 @@
         favorited: {},
         liked: {},
         drafts: [],
-        totalBlog: 0,
-        totalWork: 0,
-        totalCollection: 0,
-        userName: 'leaf',
-        headPic: '../../static/img/github-avatar.jpeg',
+        totalCounts: {},
         currentIndex: 0
       };
     },
@@ -112,15 +131,18 @@
       this.userInfo = storage.getItem(userInfoKey);
     },
     mounted () {
-      getUserInfo(this.userInfo.userId).then(res => {
-        if (res.result.code === 200) {
-          this.userName = res.data.userName;
-          this.headPic = res.data.avatar;
-        } else {
+      getUserInfo({userId: this.$route.query.id}).then(res => {
+        if (res.result && +res.result.status === 200) {
+          this.userInfo = res.data.userInfo;
+        }
+      });
+      getCounts({userId: this.$route.query.id}).then(res => {
+        if (res.result && +res.result.status === 200) {
+          this.totalCounts = res.data;
         }
       });
       let params = {
-        userId: this.userInfo.userId,
+        userId: this.$route.query.id,
         pageIndex: 1,
         pageSize: 10
       };
@@ -131,12 +153,13 @@
           console.error('获取个人发表博文列表错误：' + res.result.message);
         }
       });
+      console.log(this.liked);
     },
     methods: {
       show (index) {
         this.currentIndex = index;
         let params = {
-          userId: this.userInfo.userId,
+          userId: this.$route.query.id,
           pageIndex: 1,
           pageSize: 10
         };
@@ -162,23 +185,28 @@
           break;
         }
         case 2: {
-          getPersonalFavorited(params).then(res => {
+          getPersonalLiked(params).then(res => {
             if (res.result && +res.result.status === 200) {
-              this.favorited.articles = res.data.favouriteBlogList;
-              this.favorited.works = res.data.favouriteWorkList;
+              this.liked.articles = res.data.likeBlogList;
+              this.liked.works = res.data.likeWorkList;
+              this.$refs.articlelist.initDataChange(res.data.likeBlogList);
+              this.$refs.worklist.initDataChange(res.data.likeWorkList);
             } else {
-              console.error('获取收藏列表错误：' + res.result.message);
+              console.error('获取点赞列表错误：' + res.result.message);
             }
           });
           break;
         }
         case 3: {
-          getPersonalLiked(params).then(res => {
+          getPersonalFavorited(params).then(res => {
             if (res.result && +res.result.status === 200) {
-              this.liked.articles = res.data.likeBlogList;
-              this.liked.works = res.data.likeWorkList;
+              this.favorited.articles = res.data.favouriteBlogList;
+              console.log('personal', this.favorited.articles);
+              this.favorited.works = res.data.favouriteWorkList;
+              this.$refs.articlelist.initDataChange(res.data.favouriteBlogList);
+              this.$refs.worklist.initDataChange(res.data.favouriteWorkList);
             } else {
-              console.error('获取点赞列表错误：' + res.result.message);
+              console.error('获取收藏列表错误：' + res.result.message);
             }
           });
           break;
@@ -186,7 +214,7 @@
         case 4: {
           getPersonalDraft(params).then(res => {
             if (res.result && +res.result.status === 200) {
-              this.drafts = res.data.draftList;
+              this.drafts = res.data.blogList;
             } else {
               console.error('获取点赞列表错误：' + res.result.message);
             }
@@ -216,10 +244,7 @@
           width:100%;
           height:2rem;
           .head-info{
-            width:3.2rem;
-            height:1rem;
             .info-pic{
-              display:block;
               float:left;
               width:1rem;
               height:1rem;
@@ -231,7 +256,7 @@
               }
             }
             .info-name{
-              float:left;
+              display: inline-block;
               width:1rem;
               height:0.22rem;
               line-height:0.22rem;
@@ -241,13 +266,12 @@
             }
             ul{
               margin:0;
-              float:left;
-              width:1.8rem;
+              width:9rem;
               height:0.36rem;
               list-style: none;
               padding-left:0;
               li{
-                float:left;
+                display: inline-block;
                 width: 0.4rem;
                 height:0.41rem;
                 margin:0 0.1rem 0 0;
@@ -288,7 +312,7 @@
               padding-left:0;
               list-style:none;
               li{
-                float:left;
+                display: inline-block;
                 margin-right:0.4rem;
                 cursor:pointer;
                 color:#000;
