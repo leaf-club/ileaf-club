@@ -1,20 +1,22 @@
 <template>
   <footer>
-    <div v-if="showAd" class="ft-adv">
-      <div class="blogroll">
-        <p class="topic">友情链接</p>
-        <div class="links">
-          <a v-for="item in blogroll" :key="item.id" :href="item.link">{{ item.name }}</a>
+    <div class="ft-adv-wrap">
+      <div v-if="showAd" class="ft-adv">
+        <div class="blogroll">
+          <p class="topic">友情链接</p>
+          <div class="links">
+            <a v-for="item in blogroll" :key="item.id" :href="item.link">{{ item.name }}</a>
+          </div>
         </div>
-      </div>
-      <div class="QRcode">
-        <p class="topic">微信公众号</p>
-        <img src="../assets/images/wechat-qr.jpg" alt="微信公众号" title="扫一扫">
-      </div>
-      <div class="website">
-        <p class="topic">LEAF CLUB</p>
-        <router-link to="/home" class="linkHome">www.leaf.club</router-link>
-        <router-link to="/home" class="linkHome">涨知识，上leaf-club</router-link>
+        <div class="QRcode">
+          <p class="topic">微信公众号</p>
+          <img src="../assets/images/wechat-qr.jpg" alt="微信公众号" title="扫一扫">
+        </div>
+        <div class="website">
+          <p class="topic">LEAF CLUB</p>
+          <router-link to="/home" class="linkHome">www.leaf.club</router-link>
+          <router-link to="/home" class="linkHome">涨知识，上leaf-club</router-link>
+        </div>
       </div>
     </div>
     <div :class="showAd ? 'ft' : 'ft ft-half'">
@@ -53,76 +55,79 @@
   };
 </script>
 <style lang="scss" scoped>
-  footer .ft-adv {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding-bottom: 0.2rem;
+  footer .ft-adv-wrap {
     background-color: #434343;
-    font-size: 0.18rem;
-
-    .blogroll {
-      // flex-basis: 1rem;
+    .ft-adv {
       display: flex;
-      flex-flow: column wrap;
-      justify-content: flex-start;
-      align-items: center;
-      width: 30%;
-      color: #eeeeee;
-
-      .links{
-        max-width: 2rem;
-        display: flex;
-        flex-flow: row wrap;
-      }
-
-      a{
-        display: inline-block;
-        font-size: .8em;
-        text-decoration: none;
-        padding: 0rem 0.05rem;
-        margin-bottom: 0.05rem;
-        color: #43aabb;
-        border-right: 1px solid #43aabb;
-      }
-      a:last-child{
-        border-right: none;
-      }
-    }
-
-    .QRcode {
-      width: 30%;
-      flex-grow: 1;
-      display: flex;
-      flex-flow: column wrap;
-      justify-content: flex-start;
-      align-items: center;
-      color: #eeeeee;
-
-      img{
-        width: 1rem;
-        height: 1rem;
-      }
-    }
-
-    .website {
-      width: 30%;
-      display: flex;
-      flex-flow: column nowrap;
       justify-content: center;
-      align-items: center;
-      color: #eeeeee;
-
-      p.topic{
-        font-size: 0.25rem;
-        margin-bottom: 0.1rem;
+      width: 100%;
+      max-width: 13rem;
+      margin: 0 auto;
+      padding-bottom: 0.2rem;
+      font-size: 0.18rem;
+      .blogroll {
+        // flex-basis: 1rem;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 30%;
+        color: #eeeeee;
+  
+        .links{
+          max-width: 2rem;
+          display: flex;
+          flex-flow: row wrap;
+        }
+  
+        a{
+          display: inline-block;
+          font-size: .8em;
+          text-decoration: none;
+          padding: 0rem 0.05rem;
+          margin-bottom: 0.05rem;
+          color: #43aabb;
+          border-right: 1px solid #43aabb;
+        }
+        a:last-child{
+          border-right: none;
+        }
       }
-
-      .linkHome{
-        font-size: 0.8em;
-        line-height: 1.5;
-        text-decoration: none;
-        color: #43aabb;
+  
+      .QRcode {
+        width: 30%;
+        flex-grow: 1;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: flex-start;
+        align-items: center;
+        color: #eeeeee;
+  
+        img{
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+  
+      .website {
+        width: 30%;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        color: #eeeeee;
+  
+        p.topic{
+          font-size: 0.25rem;
+          margin-bottom: 0.1rem;
+        }
+  
+        .linkHome{
+          font-size: 0.8em;
+          line-height: 1.5;
+          text-decoration: none;
+          color: #43aabb;
+        }
       }
     }
   }

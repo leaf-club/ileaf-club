@@ -46,6 +46,7 @@
           <article-list
             :articles="articles"
             :show-style="'full'"
+            ref="articlelist"
           ></article-list>
         </div>
 
@@ -58,7 +59,6 @@
         <div class="list" v-if="currentIndex === 2">
           <h2>文章</h2>
           <article-list
-            :articles="liked.articles"
             :show-style="'full'"
             ref="articlelist"
           ></article-list>
@@ -148,7 +148,8 @@
       };
       getPersonalBlog(params).then(res => {
         if (res.result && +res.result.status === 200) {
-          this.articles = res.data.blogList;
+          // this.articles = res.data.blogList;
+          this.$refs.articlelist.initDataChange(res.data.blogList);
         } else {
           console.error('获取个人发表博文列表错误：' + res.result.message);
         }
@@ -167,7 +168,8 @@
         case 0: {
           getPersonalBlog(params).then(res => {
             if (res.result && +res.result.status === 200) {
-              this.articles = res.data.blogList;
+              // this.articles = res.data.blogList;
+              this.$refs.articlelist.initDataChange(res.data.blogList);
             } else {
               console.error('获取个人发表博文列表错误：' + res.result.message);
             }
@@ -214,7 +216,7 @@
         case 4: {
           getPersonalDraft(params).then(res => {
             if (res.result && +res.result.status === 200) {
-              this.drafts = res.data.blogList;
+              this.drafts = res.data.draftList;
             } else {
               console.error('获取点赞列表错误：' + res.result.message);
             }
