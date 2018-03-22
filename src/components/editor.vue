@@ -148,7 +148,7 @@ export default {
         alert('文章标题不能为空哟^_^');
         return;
       }
-      if (!this.typeId) {
+      if (this.typeId > 5) {
         alert('请选择文章分类');
         return;
       }

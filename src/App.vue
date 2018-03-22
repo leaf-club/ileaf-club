@@ -46,6 +46,7 @@ body {
   font-size: 0.16rem;
 }
 #app>article .content {
+  min-width: 11.5rem;
   max-width: 13rem;
   margin: 0 auto;
   min-height: 6rem;

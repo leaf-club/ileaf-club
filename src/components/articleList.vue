@@ -1,18 +1,18 @@
 <template>
   <div class="article-list" @initDataChange="initDataChange">
     <ul class="list" :class="{ full: showStyle === 'full' }">
-      <li class="article" v-for="article in articles" :key="article._id">
+      <li class="article" v-for="article in articlesData" :key="article._id">
         <ul class="desc">
           <li class="item author">
             <router-link
               v-if="showStyle === 'cut'"
               class="item-author"
-              :to="{ path: '/personal', query: { id: article.userInfo._id } }"
+              :to="{ path: '/personal/' + article.userInfo._id }"
             >{{ article.userInfo.userName }}</router-link>
             <router-link
               v-if="showStyle === 'full'"
               class="item-author"
-              :to="{ path: '/personal', query: { id: article.userInfo._id } }">
+              :to="{ path: '/personal/' + article.userInfo._id }">
               <a class="avatar" href="#" :style="'background-image: url(' + article.userInfo.avatar + ');'"></a>
               <!-- <img class="avatar" :src="article.userInfo.avatar" alt="avatar"> -->
               <span class="nickname">{{ article.userInfo.userName }}</span>
@@ -31,24 +31,26 @@
           :to="{ path: '/read/' + article._id }"
         >{{ article.title }}</router-link>
         <p v-if="showStyle === 'full'" class="abstract" v-html="article.abstract"></p>
-        <action
-          v-if="showStyle === 'full'"
-          :pid="article._id"
-          :type="0"
-          :init-data="{
-            liked: article.liked,
-            favorited: article.favorited,
-            commented: false,
-            likeCount: article.likeNum === 0 ? '点赞' : article.likeNum,
-            favoriteCount: article.favoriteNum === 0 ? '收藏' : article.favoriteNum,
-            commentCount: article.commentNum === 0 ? '评论' : article.commentNum,
-            readCount: article.readNum === 0 ? '阅读' : article.readNum,
-            showLike: true,
-            showFavorite: true,
-            showComment: true,
-            showRead: true
-          }"
-        ></action>
+        <p class="action-box">
+          <action
+            v-if="showStyle === 'full'"
+            :pid="article._id"
+            :type="0"
+            :init-data="{
+              liked: article.liked,
+              favorited: article.favorited,
+              commented: false,
+              likeCount: article.likeNum === 0 ? '点赞' : article.likeNum,
+              favoriteCount: article.favoriteNum === 0 ? '收藏' : article.favoriteNum,
+              commentCount: article.commentNum === 0 ? '评论' : article.commentNum,
+              readCount: article.readNum === 0 ? '阅读' : article.readNum,
+              showLike: true,
+              showFavorite: true,
+              showComment: true,
+              showRead: true
+            }"
+          ></action>
+        </p>
       </li>
     </ul>
   </div>
@@ -59,7 +61,9 @@ import action from '@/components/action';
 
 export default {
   data () {
-    return {};
+    return {
+      articlesData: {}
+    };
   },
   components: {
     action
@@ -75,9 +79,12 @@ export default {
       }
     }
   },
+  created () {
+    this.articlesData = this.$props.articles;
+  },
   methods: {
     initDataChange (data) {
-      this.articles = data;
+      this.articlesData = data;
     }
   }
 };
@@ -147,6 +154,9 @@ $actionBtnColor: #777;
         line-height: 2;
         margin: 0.08rem 0;
         color: #666;
+      }
+      .action-box {
+        width: 2.5rem;
       }
       .title {
         display: block;

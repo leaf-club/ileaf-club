@@ -69,6 +69,10 @@ export default {
   },
   methods: {
     async saveDraft (draft) {
+      if (!this.userInfo) {
+        alert('请先登录');
+        return;
+      }
       draft.userId = this.userInfo.userId;
       // let res = await getTestUser(1);
       console.log(Object.entries(draft));
@@ -80,12 +84,16 @@ export default {
       console.error('保存草稿失败：' + res.result.message);
     },
     async publish (article) {
+      if (!this.userInfo) {
+        alert('请先登录');
+        return;
+      }
       article.userId = this.userInfo.userId;
       console.log(Object.entries(article));
       let res = await saveArticle(article);
       if (res.result && +res.result.status === 200) {
         this.$router.push({
-          path: 'personal?id=' + this.userInfo.userId
+          path: 'personal/' + this.userInfo.userId
         });
         return;
       }

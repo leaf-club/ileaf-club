@@ -1,8 +1,9 @@
 <template>
   <div class="work-list" @initDataChange="initDataChange">
-    <div v-for="work in workList" :key="work._id" class="work-box">
+    <div v-for="work in workListData" :key="work._id" class="work-box">
       <a target="_blank" :href="work.url">
-        <img :src="work.cover" alt="" class="work-cover" />
+        <!-- <img :src="work.cover" alt="" class="work-cover" /> -->
+        <div class="work-cover" :style="'background-image:url(' + work.cover + ')'"></div>
         <div class="work-abstract">
           <p class="work-title">{{ work.title }}</p>
           <p>
@@ -17,8 +18,8 @@
         :pid="work._id"
         :type="1"
         :init-data="{
-          liked: false,
-          favorited: false,
+          liked: work.liked,
+          favorited: work.favorited,
           commented: false,
           likeCount: work.likeNum === 0 ? '点赞' : work.likeNum,
           favoriteCount: work.favoriteNum === 0 ? '收藏' : work.favoriteNum,
@@ -26,8 +27,8 @@
           readCount: work.readNum === 0 ? '查看' : work.readNum,
           showLike: true,
           showFavorite: true,
-          showComment: true,
-          showRead: true,
+          showComment: false,
+          showRead: false,
         }"
       ></action>
     </div>
@@ -38,15 +39,20 @@ import action from '@/components/action';
 
 export default {
   data () {
-    return {};
+    return {
+      workListData: {}
+    };
   },
   components: {
     action
   },
   props: ['workList'],
+  created () {
+    this.workListData = this.$props.workList;
+  },
   methods: {
     initDataChange (data) {
-      this.workList = data;
+      this.workListData = data;
     }
   }
 };
@@ -65,9 +71,11 @@ export default {
       margin-right: 0.15rem;
       
       .work-cover{
+        display: inline-block;
         width: 2.5rem;
         height: 2rem;
         border-radius: 0.05rem;
+        background-size: cover;
       }
 
       .work-abstract{
