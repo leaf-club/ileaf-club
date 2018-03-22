@@ -16,7 +16,6 @@
         <ul id="options">
           <li v-if="isLogin" class="user-info">
             <a href="javascript:void(0)" class="avatar" :style="'background-image: url('+userInfo.avatar+');'">
-              <!-- <img :src="userInfo.avatar" width="40" alt="用户头像"> -->
             </a>
             <ul class="drop-menu">
               <li class="item">
@@ -36,7 +35,6 @@
               </li>
               <li class="item">
                 <a href="javascript:void(0)" class="link" @click="logout">退出</a>
-                <!-- <router-link to="/home" class="link">退出</router-link> -->
               </li>
             </ul>
           </li>
@@ -421,7 +419,7 @@
         padding: .08rem .1rem;
         &.register-mail-input {
           width: 1.69rem;
-          display: inline;
+          display: inline-block;
         }
         &.validation-code-input {
           width: .5rem;
