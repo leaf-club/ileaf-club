@@ -6,6 +6,7 @@
         <article-list
           :articles="articles"
           :show-style="'full'"
+          ref="articlelist"
         ></article-list>
       </main>
       <aside>
@@ -53,11 +54,23 @@ export default {
     };
     getBlogList(params).then(res => {
       if (res.result && +res.result.status === 200) {
-        this.articles = res.data.blogList;
+        // this.articles = res.data.blogList;
+        this.$refs.articlelist.initDataChange(res.data.blogList);
         return;
       }
       console.error('获取文章列表错误：' + res.result);
     });
+    // saveWork({
+    //   userId: 0,
+    //   url: 'http://opzww7anw.bkt.clouddn.com/leaf/image/gem.jpg',
+    //   cover: 'http://opzww7anw.bkt.clouddn.com/leaf/image/gem.jpg',
+    //   title: '漂亮的师姐招商',
+    //   description: '师姐师姐真漂亮'
+    // }).then(res => {
+    //   if (res.result && +res.result.status === 200) {
+    //     console.log('save success');
+    //   }
+    // });
   }
 };
 </script>

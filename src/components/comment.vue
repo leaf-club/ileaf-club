@@ -3,14 +3,19 @@
     <section class="comment-box">
       <div class="author-info">
         <div class="avatar" :style="'background-image: url(' + comment.userInfo.avatar + ');background-size:cover;'"></div>
-        <p>{{comment.userInfo.userName}}</p>
+        <p>
+          <router-link
+              class="item-author"
+              :to="{ path: '/personal/' + comment.userInfo._id }"
+            >{{ comment.userInfo.userName }}</router-link>
+        </p>
         <p class="other-info">
           {{comment.createTime | timeFilter}}
         </p>
       </div>
       <p class="comment_content">{{comment.content}}</p>
       <p class="comment-action">
-        <span class="thumb_up" @click="likeComment(comment._id)"><i class="fa fa-thumbs-o-up"></i>{{comment.likeNum ? comment.likeNum : '点赞'}}</span>
+        <span class="thumb_up" @click="likeComment(comment._id)"><i class="fa" :class="liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'"></i>{{comment.likeNum ? comment.likeNum : '点赞'}}</span>
         <span class="comment" @click="replyToComment(comment._id, comment.userInfo._id, comment.userInfo.userName)" v-show="!isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>回复</span>
         <span class="comment" @click="closeComment" v-show="isShowSubCommentTextarea"><i class="fa fa-comment-o"></i>收起回复</span>
       </p>
@@ -43,23 +48,39 @@
         subCommentInfo: '你的月亮我的心，说出你的心声',
         commentToCommentVal: '',
         repliedUserId: '',
-        userInfo: {}
+        userInfo: {},
+        liked: false
       };
     },
     props: ['comment'],
     created () {
       let storage = new Storage();
       this.userInfo = storage.getItem(userInfoKey);
+      this.liked = this.$props.comment.liked;
     },
     methods: {
       likeComment (commentId) {
-        likeComment({commentId: commentId}).then(res => {
+        if (!this.userInfo) {
+          alert('请先登录');
+          return;
+        }
+        let commentOperator = !this.liked;
+        likeComment({
+          userId: this.userInfo.userId,
+          commentId: commentId,
+          operate: commentOperator
+        }).then(res => {
           if (res.result && +res.result.status === 200) {
             this.$emit('likeNumChange', res.data.likeNum);
+            this.liked = !this.liked;
           }
         });
       },
       replyToComment (commentId, userId, username) {
+        if (!this.userInfo) {
+          alert('请先登录');
+          return;
+        }
         if (!this.commentToCommentVal) {
           this.isShowSubCommentTextarea = true;
           this.repliedUserId = userId;
@@ -116,10 +137,14 @@
       p {
         margin: .06rem 0;
         font-size: .12rem;
-      }
-      p.other-info {
-        font-size: .12rem;
-        color: #666;
+        .item-author {
+          color: #4eb2a3;
+          text-decoration: none;
+        }
+        &.other-info {
+          font-size: .12rem;
+          color: #666;
+        }
       }
     }
     p.comment_content {

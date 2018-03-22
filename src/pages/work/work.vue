@@ -3,7 +3,7 @@
     <div class="content">
       <main>
         <h2>{{ msg }}</h2>
-        <workList :work-list="works"></workList>
+        <workList :work-list="works" ref="worklist"></workList>
       </main>
       <aside>
         <adsense :adList="adList"></adsense>
@@ -50,7 +50,8 @@ export default {
     };
     getWorkList(params).then(res => {
       if (res.result && +res.result.status === 200) {
-        this.works = res.data.workList;
+        // this.works = res.data.workList;
+        this.$refs.worklist.initDataChange(res.data.workList);
         return;
       }
       console.error('获取作品列表错误：' + res.result.message);

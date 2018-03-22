@@ -8,6 +8,19 @@ export function once (fn) {
   };
 };
 
+export function throttle (fn, time = 500, fncb) {
+  let timer;
+  return function (...args) {
+    if (timer == null) {
+      fn.apply(this, args);
+      timer = setTimeout(() => {
+        timer = null;
+        fncb.apply(this);
+      }, time);
+    }
+  };
+};
+
 /**
  * 设置本地Cookies
  * @param {String} key
@@ -64,4 +77,9 @@ export function timeFormat (timestamp, format) {
     }
   }
   return fmt;
+}
+
+export function isEmail (email) {
+  let reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+  return reg.test(email);
 }

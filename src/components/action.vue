@@ -13,13 +13,13 @@
       </a>
     </li>
     <li class="item" v-if="showComment">
-      <router-link class="btn" :to="'read/' + pid + '#comment'">
+      <router-link class="btn" :to="'/read/' + pid + '#comment'">
         <i class="fa" :class="commented ? 'fa-comments' : 'fa-comments-o'"></i>
         {{ commentCount }}
       </router-link>
     </li>
     <li class="item" v-if="showRead">
-      <router-link class="btn" :to="'read/' + pid">
+      <router-link class="btn" :to="'/read/' + pid">
         <i class="fa fa-eye"></i>
         {{ readCount }}
       </router-link>
@@ -66,7 +66,7 @@
         let storage = new Storage();
         let userInfo = storage.getItem(userInfoKey);
         if (!userInfo) {
-          console.log('请登录后再进行操作！');
+          alert('请登录后再进行操作！');
           return;
         }
         if (this.liked) {
@@ -97,7 +97,7 @@
         let storage = new Storage();
         let userInfo = storage.getItem(userInfoKey);
         if (!userInfo) {
-          console.log('请登录后再进行操作！');
+          alert('请登录后再进行操作！');
           return;
         }
         if (this.favorited) {
@@ -140,8 +140,8 @@ $actionBtnColor: #777;
   list-style: none;
   padding: 0;
   display: flex;
+  justify-content: space-around;
   .item {
-    margin-right: 0.15rem;
     min-width: 0.5rem;
     text-align: center;
     .btn {

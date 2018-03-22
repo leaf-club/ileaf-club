@@ -21,23 +21,25 @@
           <h1>{{articleData.title}}</h1>
           <div class="article-content" v-html="articleData.htmlCode">
           </div>
-          <action
-            :pid="articleData._id ? articleData._id : -1"
-            :type="0"
-            :init-data="{
-              liked: articleData.liked,
-              favorited: articleData.favorited,
-              commented: false,
-              likeCount: articleData.likeNum === 0 ? '点赞' : articleData.likeNum,
-              favoriteCount: articleData.favoriteNum === 0 ? '收藏' : articleData.favoriteNum,
-              commentCount: articleData.commentNum === 0 ? '评论' : articleData.commentNum,
-              readCount: articleData.readNum === 0 ? '查看' : articleData.readNum,
-              showLike: true,
-              showFavorite: true,
-              showComment: false,
-              showRead: true,
-            }"
-          ></action>
+          <p class="action-box">
+            <action
+              :pid="articleData._id ? articleData._id : -1"
+              :type="0"
+              :init-data="{
+                liked: articleData.liked,
+                favorited: articleData.favorited,
+                commented: false,
+                likeCount: articleData.likeNum === 0 ? '点赞' : articleData.likeNum,
+                favoriteCount: articleData.favoriteNum === 0 ? '收藏' : articleData.favoriteNum,
+                commentCount: articleData.commentNum === 0 ? '评论' : articleData.commentNum,
+                readCount: articleData.readNum === 0 ? '查看' : articleData.readNum,
+                showLike: true,
+                showFavorite: true,
+                showComment: false,
+                showRead: true,
+              }"
+            ></action>
+          </p>
         </section>
         <section class="comment-to-article">
           <textarea name="commenToArticle" id="commenToArticle" cols="80" rows="5" placeholder="你的月亮我的心，说出你的心声" v-show="isShowCommentBox" v-model="commentToArticleVal"></textarea>
@@ -45,9 +47,9 @@
         </section>
         <section id="comment">
           <comment 
-            v-for="comment in commentData" 
-            :key="comment._id" 
-            :comment="comment" 
+            v-for="comment in commentData"
+            :key="comment._id"
+            :comment="comment"
             @likeNumChange="num => comment.likeNum = num"
           ></comment>
         </section>
@@ -86,6 +88,14 @@
       foot,
       action,
       comment
+    },
+    beforeRouteUpdate (to, from, next) {
+      getBlogDetail({ id: to.params.id }).then(res => {
+        if (res.result && +res.result.status === 200) {
+          this.articleData = res.data.blogDetail;
+        }
+      });
+      next();
     },
     created () {
       let storage = new Storage();
@@ -131,6 +141,10 @@
       //   this.commentToCommentVal = '';
       // },
       commentToArticle () {
+        if (!this.userInfo) {
+          alert('请先登录再评论哦');
+          return;
+        }
         if (!this.isShowCommentBox) {
           this.isShowCommentBox = !this.isShowCommentBox;
           return;
@@ -195,6 +209,9 @@
           }
           .article-content {
             line-height: 2;
+          }
+          .action-box {
+            width: 2.5rem;
           }
         }
         .comment-to-article {

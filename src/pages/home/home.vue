@@ -8,11 +8,12 @@
           <article-list
             :articles="articles"
             :show-style="'cut'"
+            ref="articlelist"
           ></article-list>
         </section>
         <section>
           <h3>热门作品推荐</h3>
-          <work-list :work-list="works"></work-list>
+          <work-list :work-list="works" ref="worklist"></work-list>
         </section>
       </main>
       <aside>
@@ -65,23 +66,19 @@ export default {
       userId: userInfo ? userInfo.userId : '',
       count: 5
     };
-    // let res = await getRecommendBlogList(params);
-    // if (res.result && +res.result.status === 200) {
-    //   this.works = res.data.blogList;
-    // } else {
-    //   console.error('获取推荐文章列表错误：' + res.result.message);
-    // }
 
     getRecommendBlogList(params).then((res) => {
       if (res.result && +res.result.status === 200) {
-        this.articles = res.data.blogList;
+        // this.articles = res.data.blogList;
+        this.$refs.articlelist.initDataChange(res.data.blogList);
         return;
       }
       console.error('获取推荐文章列表错误：' + res.result.message);
     });
     getRecommendWorkList(params).then((res) => {
       if (res.result && +res.result.status === 200) {
-        this.works = res.data.workList;
+        // this.works = res.data.workList;
+        this.$refs.worklist.initDataChange(res.data.workList);
         return;
       }
       console.error('获取推荐作品列表错误：' + res.result.message);
